@@ -1,0 +1,8 @@
+<p>A paragraph<sup class="footnote-ref"><a href="#fn-w" id="fnref-w" data-footnote-ref>1</a></sup></p>
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="fn-w">
+<p>Starts right after. <a href="#fnref-w" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a></p>
+</li>
+</ol>
+</section>

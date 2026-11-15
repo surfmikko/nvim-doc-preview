@@ -1,0 +1,9 @@
+- [ ] open task
+- [x] done task
+- [X] also done
+  - [ ] nested task
+  - [x] nested done
+- [ ] task with *emphasis* and [a link](http://example.com/x) in it
+- [ ] second [link][r] here
+
+[r]: http://example.com/r

@@ -1,0 +1,9 @@
+classDiagram
+  namespace Shapes {
+    class Circle
+    class Square {
+      +side
+    }
+  }
+  class Other
+  Circle <|-- Other

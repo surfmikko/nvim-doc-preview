@@ -1,0 +1,5 @@
+upstream: cmark (https://github.com/commonmark/cmark)
+tool-version: cmark 0.30.3 - CommonMark converter
+command: cmark --to html <case>.in
+tool-licence: BSD-2-Clause
+input: written for this repo

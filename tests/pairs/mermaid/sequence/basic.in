@@ -1,0 +1,12 @@
+sequenceDiagram
+participant A as Alice
+actor B as Bob
+A->>B: Hello<br/>Bob
+B-->>A: Hi
+A->B: open
+A-->B: dotted open
+A-xB: cross
+B--xA: dotted cross
+A-)B: async
+B--)A: dotted async
+C->>A: implicit

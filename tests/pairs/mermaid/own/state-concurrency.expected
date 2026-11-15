@@ -1,0 +1,19 @@
+direction TD
+composite Active "Active" states=
+composite Active--1 "" parent=Active states=start:Active,NumLockOff,NumLockOn
+composite Active--2 "" parent=Active states=start:Active--2,CapsLockOff,CapsLockOn
+composite Active--3 "" parent=Active states=
+composite Third "Third" parent=Active--3 states=t1,t2
+state start:Active start ""
+state NumLockOff round "NumLockOff"
+state NumLockOn round "NumLockOn"
+state start:Active--2 start ""
+state CapsLockOff round "CapsLockOff"
+state CapsLockOn round "CapsLockOn"
+state t1 round "t1"
+state t2 round "t2"
+transition start:Active NumLockOff
+transition NumLockOff NumLockOn "EvNumLockPressed"
+transition start:Active--2 CapsLockOff
+transition CapsLockOff CapsLockOn
+transition t1 t2

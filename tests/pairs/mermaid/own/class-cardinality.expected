@@ -1,0 +1,7 @@
+direction TD
+class Customer "Customer"
+class Ticket "Ticket"
+class Seat "Seat"
+relation Customer Ticket solid tail=none head=arrow tail_card="1" head_card="*" "buys"
+relation Ticket Seat solid tail=diamond head=none tail_card="0..1" head_card="1..*"
+relation Seat Customer dotted tail=none head=arrow "notifies"

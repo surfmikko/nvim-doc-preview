@@ -1,0 +1,17 @@
+#!/bin/sh
+# Module-size gate (doc/testing.md 5): at most MAX lines per .lua file.
+# Usage: [MAX=400] tools/check-size [dir...] (default: lua).
+set -eu
+
+max=${MAX:-400}
+[ $# -gt 0 ] || set -- lua
+
+status=0
+for f in $(find "$@" -name '*.lua' | sort); do
+  n=$(wc -l <"$f" | tr -d ' ')
+  if [ "$n" -gt "$max" ]; then
+    echo "$f: $n lines (max $max)"
+    status=1
+  fi
+done
+exit $status

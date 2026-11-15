@@ -1,0 +1,28 @@
+sequenceDiagram
+loop Every minute
+  A->>B: ping
+  alt ok
+    B->>A: pong
+  else failed
+    B->>A: error
+  end
+end
+opt maybe
+  A->>B: x
+end
+par one
+  A->>B: a
+and two
+  A->>C: b
+end
+critical connect
+  A->>B: try
+option timeout
+  A->>B: retry
+end
+break stop
+  A->>B: halt
+end
+rect rgb(0, 255, 0)
+  A->>B: boxed
+end

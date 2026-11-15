@@ -1,0 +1,10 @@
+Text[^c].
+
+[^c]: Steps:
+
+    - one
+    - two
+
+    ```
+    run()
+    ```

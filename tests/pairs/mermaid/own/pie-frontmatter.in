@@ -1,0 +1,6 @@
+---
+title: x
+---
+pie showData
+  "A: b" : .5
+  "C" : 1.5

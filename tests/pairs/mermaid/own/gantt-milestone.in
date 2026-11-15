@@ -1,0 +1,4 @@
+gantt
+  Work :w, 2024-01-01, 2d
+  Release :milestone, r, after w, 0d
+  Done :milestone, 2024-01-10, 0d

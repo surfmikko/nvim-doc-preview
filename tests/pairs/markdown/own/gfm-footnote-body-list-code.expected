@@ -1,0 +1,15 @@
+<p>Text<sup class="footnote-ref"><a href="#fn-c" id="fnref-c" data-footnote-ref>1</a></sup>.</p>
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="fn-c">
+<p>Steps:</p>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<pre><code>run()
+</code></pre>
+<a href="#fnref-c" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a>
+</li>
+</ol>
+</section>

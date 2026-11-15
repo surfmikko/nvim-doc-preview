@@ -1,0 +1,3 @@
+[^early]: Defined ahead of time.
+
+Later the text[^early] appears.

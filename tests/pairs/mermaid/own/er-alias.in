@@ -1,0 +1,7 @@
+erDiagram
+  p["Person Entity"] {
+    string name
+  }
+  car[Car]
+  "quoted name" ||--o{ p : owns
+  p ||--o{ car : drives

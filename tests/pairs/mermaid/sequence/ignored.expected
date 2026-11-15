@@ -1,0 +1,4 @@
+participant A participant "A"
+participant B participant "B"
+message A B solid arrow "hi"
+message B A solid arrow "yo"

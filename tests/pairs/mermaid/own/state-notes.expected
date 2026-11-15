@@ -1,0 +1,10 @@
+direction TD
+state A round "A"
+state B round "B"
+state note:1 record "one line"
+state note:2 record "block line 1\nblock line 2"
+state note:3 record "over"
+transition A B
+transition A note:1 dotted
+transition B note:2 dotted
+transition A note:3 dotted

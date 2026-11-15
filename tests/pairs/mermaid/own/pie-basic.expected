@@ -1,0 +1,4 @@
+pie showData=false
+slice "Dogs" value=386 pct=79
+slice "Cats" value=85 pct=18
+slice "Rats" value=15 pct=3

@@ -1,0 +1,4 @@
+direction TD
+entity A "A"
+entity B "B"
+relationship A B identifying tail=one head=zero_many "has"

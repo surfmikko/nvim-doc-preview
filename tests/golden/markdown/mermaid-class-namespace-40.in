@@ -1,0 +1,10 @@
+```mermaid
+classDiagram
+  namespace shapes {
+    class Circle
+    class Square
+  }
+  class Canvas
+  Canvas --> Circle
+  Canvas --> Square
+```

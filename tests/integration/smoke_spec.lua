@@ -1,0 +1,7 @@
+describe("integration smoke", function()
+  it("runs in headless Neovim and can create a buffer", function()
+    assert.is_true(#vim.api.nvim_list_uis() == 0)
+    local buf = vim.api.nvim_create_buf(false, true)
+    assert.is_true(vim.api.nvim_buf_is_valid(buf))
+  end)
+end)

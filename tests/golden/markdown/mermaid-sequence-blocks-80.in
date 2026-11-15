@@ -1,0 +1,15 @@
+```mermaid
+sequenceDiagram
+A->>B: start
+loop Every minute
+  A->>B: ping
+  alt ok
+    B->>A: pong
+  else failed
+    B-->>A: error
+  end
+end
+opt maybe
+  B->>A: x
+end
+```

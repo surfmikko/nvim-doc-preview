@@ -1,0 +1,12 @@
+Intro with a note[^long] in it.
+
+[^long]: First paragraph of the note, which is long enough to wrap over several rows.
+
+    Second paragraph of the note.
+
+    - item one
+    - item two
+
+    ```
+    code line in note
+    ```

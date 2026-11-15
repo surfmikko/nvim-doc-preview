@@ -1,0 +1,10 @@
+/tests export-ignore
+/tools export-ignore
+/issue export-ignore
+/deps export-ignore
+/Makefile export-ignore
+/CLAUDE.md export-ignore
+/stylua.toml export-ignore
+/.luacheckrc export-ignore
+/doc/*.md export-ignore
+/doc/demo.gif export-ignore

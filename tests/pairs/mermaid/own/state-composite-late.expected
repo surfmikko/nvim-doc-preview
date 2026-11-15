@@ -1,0 +1,7 @@
+direction TD
+composite Box "The Box" states=x,y
+state A round "A"
+state x round "x"
+state y round "y"
+transition A Box
+transition x y

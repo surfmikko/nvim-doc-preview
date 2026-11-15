@@ -1,0 +1,4 @@
+pie showData=true title "Key elements"
+slice "Calcium" value=42.96 pct=42
+slice "Potassium" value=50.05 pct=48
+slice "Magnesium" value=10.01 pct=10

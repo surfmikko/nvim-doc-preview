@@ -1,0 +1,7 @@
+erDiagram
+  direction LR
+  A ||--|| B : r1
+  A |o--o| B : r2
+  A }o--o{ B : r3
+  A }|--|{ B : r4
+  A |o..|{ B : r5

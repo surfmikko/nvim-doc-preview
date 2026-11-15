@@ -1,0 +1,8 @@
+<p>One<sup class="footnote-ref"><a href="#fn-k" id="fnref-k" data-footnote-ref>1</a></sup> and again<sup class="footnote-ref"><a href="#fn-k" id="fnref-k-2" data-footnote-ref>1</a></sup>.</p>
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="fn-k">
+<p>Shared note. <a href="#fnref-k" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a> <a href="#fnref-k-2" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1-2" aria-label="Back to reference 1-2">↩<sup class="footnote-ref">2</sup></a></p>
+</li>
+</ol>
+</section>

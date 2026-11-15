@@ -1,0 +1,5 @@
+stateDiagram-v2
+  A --> Box
+  state "The Box" as Box {
+    x --> y
+  }

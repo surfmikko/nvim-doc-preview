@@ -1,0 +1,11 @@
+Prose before.
+
+┌──────────────────────────────────────┐
+│ mermaid: flowchart: line 2: syntax e │
+│ rror: A[unclosed                     │
+├──────────────────────────────────────┤
+│ flowchart TD                         │
+│ A[unclosed                           │
+└──────────────────────────────────────┘
+
+Prose after, unaffected.

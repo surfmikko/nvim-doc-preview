@@ -1,0 +1,10 @@
+┌───────────────────────────────┐
+│ diagram wider than 40 columns │
+├───────────────────────────────┤
+│ flowchart TD                  │
+│   A[Alpha] --> B[Beta]        │
+│   A --> C[Gamma]              │
+│   A --> D[Delta]              │
+│   A --> E[Epsilon]            │
+│   A --> F[Zeta]               │
+└───────────────────────────────┘

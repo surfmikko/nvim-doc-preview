@@ -1,0 +1,6 @@
+gantt unit=day format=YYYY-MM-DD
+task "Later" id=l start=2024-02-07 end=2024-02-09
+task "A" id=a start=2024-02-01 end=2024-02-03
+task "B" id=b start=2024-02-02 end=2024-02-07
+task "Until" id=u start=2024-02-01 end=2024-02-02
+task "Follows" start=2024-02-02 end=2024-02-04

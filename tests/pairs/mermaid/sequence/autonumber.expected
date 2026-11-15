@@ -1,0 +1,7 @@
+participant A participant "A"
+participant B participant "B"
+autonumber
+message A B solid arrow "one"
+autonumber start=10 step=5
+message A B solid arrow "two"
+autonumber off

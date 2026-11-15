@@ -1,0 +1,8 @@
+```mermaid
+flowchart TD
+  A{Ready?} -->|yes| B[Go]
+  A -->|no| C[Wait]
+  B --> D[Done]
+  C --> D
+```
+

@@ -1,0 +1,5 @@
+| a | b |
+| - | - |
+| x[^t] | y |
+
+[^t]: Note for the cell.

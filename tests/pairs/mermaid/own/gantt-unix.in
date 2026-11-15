@@ -1,0 +1,4 @@
+gantt
+  dateFormat X
+  Zero :a, 0, 86400
+  Next :after a, 2d

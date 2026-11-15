@@ -1,0 +1,23 @@
+nvim-doc-preview
+Copyright (c) 2026 Mikko Vatanen, MIT licence (see LICENSE).
+
+This file credits third-party work used by this repository. Details per
+reference are in doc/references.md. Entries are added by the slice that
+first uses a reference.
+
+No third-party source code is ported into this repository so far.
+
+* cmark (https://github.com/commonmark/cmark), BSD-2-Clause, copyright
+  John MacFarlane and contributors. Dev-only oracle: `tools/oracle/commonmark-own`
+  runs it over inputs written in this repository to generate the
+  `tests/pairs/markdown/own/*.expected` files (its HTML output). Its
+  behaviour was also studied for ATX and setext headings; no code was copied.
+
+* cmark-gfm (https://github.com/github/cmark-gfm), BSD-2-Clause, copyright
+  GitHub, Inc., John MacFarlane and contributors. Dev-only oracle for the
+  `gfm-*` inputs under `tests/pairs/markdown/own/` (strikethrough). No code
+  copied. The inline emphasis algorithm was studied in commonmark.js
+  (BSD-2-Clause) and markdown-it (MIT); no code copied.
+
+* plenary.nvim (https://github.com/nvim-lua/plenary.nvim), MIT. Test runner
+  only; fetched into the gitignored `deps/` by `make deps`, never vendored.

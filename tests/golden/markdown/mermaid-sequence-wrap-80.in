@@ -1,0 +1,5 @@
+```mermaid
+sequenceDiagram
+Client->>Server: a very long message text that has to be wrapped to fit
+Server->>Database: another quite long query description
+```

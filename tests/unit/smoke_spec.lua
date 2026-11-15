@@ -1,0 +1,5 @@
+describe("unit smoke", function()
+  it("runs a spec", function()
+    assert.are.equal(2, 1 + 1)
+  end)
+end)

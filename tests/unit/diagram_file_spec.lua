@@ -1,0 +1,32 @@
+local diagram_file = require("doc_preview.document.diagram_file")
+local model = require("doc_preview.document.model")
+
+describe("document.diagram_file", function()
+  it("wraps the buffer as one mermaid code_block", function()
+    local lines = { "flowchart TD", "A[Start]", "" }
+    local doc = diagram_file.parse(lines)
+    assert.is_true(model.validate(doc))
+    assert.equals(1, #doc.children)
+    local b = doc.children[1]
+    assert.equals("code_block", b.kind)
+    assert.equals("mermaid", b.lang)
+    assert.same(lines, b.lines)
+    assert.equals(1, b.src_start)
+    assert.equals(3, b.src_end)
+    assert.equals(3, doc.src_end)
+  end)
+
+  it("handles an empty buffer", function()
+    local doc = diagram_file.parse({})
+    assert.is_true(model.validate(doc))
+    assert.equals(1, doc.children[1].src_end)
+  end)
+
+  it("matches by filetype or extension only", function()
+    assert.is_true(diagram_file.matches("mermaid", ""))
+    assert.is_true(diagram_file.matches("", "/x/a.mmd"))
+    assert.is_true(diagram_file.matches("", "a.mermaid"))
+    assert.is_false(diagram_file.matches("markdown", "a.md"))
+    assert.is_false(diagram_file.matches("", "a.mmdx"))
+  end)
+end)

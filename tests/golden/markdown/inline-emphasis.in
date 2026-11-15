@@ -1,0 +1,7 @@
+Plain *emphasis*, **strong text**, ***both***, _under_ and __double__.
+
+Snake_case_word stays literal, intra*word*emphasis works, a * b * c stays literal.
+
+Nested **strong with *inner emphasis* inside** and *a **b** c*.
+
+Unmatched *star and trailing ** pair.

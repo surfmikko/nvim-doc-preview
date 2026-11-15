@@ -1,0 +1,10 @@
+%% comment
+gantt
+  title T
+  axisFormat %m-%d
+  tickInterval 1week
+  todayMarker off
+  excludes weekends
+  weekday monday
+  inclusiveEndDates
+  Task :a, 2024-05-01, 1d

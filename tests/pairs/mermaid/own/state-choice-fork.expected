@@ -1,0 +1,15 @@
+direction TD
+state if_state choice ""
+state fork_state bar ""
+state join_state bar ""
+state start:root start ""
+state end:root end ""
+state L round "L"
+state R round "R"
+transition start:root if_state
+transition if_state fork_state "yes"
+transition if_state end:root "no"
+transition fork_state L
+transition fork_state R
+transition L join_state
+transition R join_state

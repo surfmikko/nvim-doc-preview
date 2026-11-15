@@ -1,0 +1,4 @@
+classDiagram
+  class A
+  note "free floating"
+  note for A "about A\nsecond line"

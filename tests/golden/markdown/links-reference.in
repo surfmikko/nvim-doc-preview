@@ -1,0 +1,7 @@
+A [shortcut], a [full][Ref] and a [collapsed][] link, plus ![an image](img.png).
+
+[shortcut]: https://a.example/
+[REF]: <https://b.example/with space> 'Title'
+[collapsed]: https://a.example/
+
+# Heading with [link](https://c.example/)

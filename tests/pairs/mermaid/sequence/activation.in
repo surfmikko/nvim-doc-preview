@@ -1,0 +1,6 @@
+sequenceDiagram
+A->>+B: start
+activate C
+deactivate C
+B-->>-A: done
+B->>A: plain

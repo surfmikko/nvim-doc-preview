@@ -1,0 +1,11 @@
+<p>Quoted reference.</p>
+<blockquote>
+<p>Inside<sup class="footnote-ref"><a href="#fn-q" id="fnref-q" data-footnote-ref>1</a></sup> a quote.</p>
+</blockquote>
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="fn-q">
+<p>Note from the quote. <a href="#fnref-q" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a></p>
+</li>
+</ol>
+</section>

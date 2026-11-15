@@ -1,0 +1,15 @@
+┌─────────────┬────────────┬───────────┐
+│ Description │ Value      │ 名前      │
+├─────────────┼────────────┼───────────┤
+│ A rather    │ 12345      │ 日本語の  │
+│ long        │            │ テキスト  │
+│ description │            │ がここに  │
+│ that must   │            │ あります  │
+│ wrap across │            │           │
+│ several     │            │           │
+│ lines       │            │           │
+│ short       │ supercalif │ x         │
+│             │ ragilistic │           │
+│             │ expialidoc │           │
+│             │ ious       │           │
+└─────────────┴────────────┴───────────┘

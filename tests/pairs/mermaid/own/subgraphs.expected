@@ -1,0 +1,14 @@
+direction TD
+node A rect "A"
+node B rect "B"
+node C rect "C"
+node D rect "D"
+node E rect "E"
+node F rect "Eff"
+node G rect "G"
+subgraph one "First group" nodes=C,D,F
+subgraph inner "inner" parent=one direction=LR nodes=E
+subgraph two "two" nodes=G
+edge A B solid head=arrow tail=none length=1
+edge C D solid head=arrow tail=none length=1
+edge D G solid head=arrow tail=none length=1

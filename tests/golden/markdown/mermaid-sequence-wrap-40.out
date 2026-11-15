@@ -1,0 +1,23 @@
+┌────────┐   ┌────────┐  ┌──────────┐
+│ Client │   │ Server │  │ Database │
+└────────┘   └────────┘  └──────────┘
+    ┆            ┆            ┆
+    ┆   a very   ┆            ┆
+    ┆    long    ┆            ┆
+    ┆  message   ┆            ┆
+    ┆ text that  ┆            ┆
+    ┆ has to be  ┆            ┆
+    ┆ wrapped to ┆            ┆
+    ┆    fit     ┆            ┆
+    ┆───────────▶┆            ┆
+    ┆            ┆            ┆
+    ┆            ┆  another   ┆
+    ┆            ┆ quite long ┆
+    ┆            ┆   query    ┆
+    ┆            ┆ descriptio ┆
+    ┆            ┆     n      ┆
+    ┆            ┆───────────▶┆
+    ┆            ┆            ┆
+┌────────┐   ┌────────┐  ┌──────────┐
+│ Client │   │ Server │  │ Database │
+└────────┘   └────────┘  └──────────┘

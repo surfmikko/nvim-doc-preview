@@ -1,0 +1,21 @@
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x<sup class="footnote-ref"><a href="#fn-t" id="fnref-t" data-footnote-ref>1</a></sup></td>
+<td>y</td>
+</tr>
+</tbody>
+</table>
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="fn-t">
+<p>Note for the cell. <a href="#fnref-t" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a></p>
+</li>
+</ol>
+</section>

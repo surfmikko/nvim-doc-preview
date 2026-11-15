@@ -1,0 +1,5 @@
+| Name | Qty | Note |
+|:-----|:---:|-----:|
+| **bold** | 1 | `code` |
+| *em* | 22 | [link](http://a.example) |
+| plain | 333 | ~~gone~~ |

@@ -1,0 +1,3 @@
+pie showData=false
+slice "A" value=0 pct=0
+slice "B" value=5 pct=100

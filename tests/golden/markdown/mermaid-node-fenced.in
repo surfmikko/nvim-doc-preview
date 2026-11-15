@@ -1,0 +1,9 @@
+Before the diagram.
+
+```mermaid
+flowchart TD
+  A[Start]
+  B["Wide label that is long"]
+```
+
+After the diagram.

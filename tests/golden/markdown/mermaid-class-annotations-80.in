@@ -1,0 +1,12 @@
+```mermaid
+classDiagram
+  class Shape {
+    <<interface>>
+    +area() double
+  }
+  class Box~T~ {
+    +T value
+    +get() T
+  }
+  Shape <|.. Box
+```

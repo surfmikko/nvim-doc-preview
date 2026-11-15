@@ -1,0 +1,8 @@
+%% comment
+stateDiagram-v2
+  classDef hot fill:#f00
+  A --> B:::hot
+  class A hot
+  style B fill:#0f0
+  hide empty description
+  title ignored

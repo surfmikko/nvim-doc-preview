@@ -1,0 +1,16 @@
+direction TD
+composite First "First" states=start:First,inner,end:First
+composite Deep "Deep" parent=First direction=LR states=a,b
+state start:root start ""
+state start:First start ""
+state inner round "inner"
+state end:First end ""
+state a round "a"
+state b round "b"
+state Second round "Second"
+transition start:root First
+transition start:First inner
+transition inner end:First
+transition a b
+transition First Second
+transition Second First

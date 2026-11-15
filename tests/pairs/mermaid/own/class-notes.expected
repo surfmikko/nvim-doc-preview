@@ -1,0 +1,5 @@
+direction TD
+class A "A"
+note note:1 "free floating"
+note note:2 "about A\nsecond line"
+relation A note:2 dotted tail=none head=none

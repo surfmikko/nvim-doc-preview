@@ -1,0 +1,10 @@
+classDiagram
+  class List~T~ {
+    +add(T item) void
+    +List~int~ items
+  }
+  class `Odd Name`
+  class Box["Pretty box"]
+  `Odd Name` --> List~T~
+  List : <<interface>>
+  <<service>> Box

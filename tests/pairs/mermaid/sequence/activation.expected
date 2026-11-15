@@ -1,0 +1,8 @@
+participant A participant "A"
+participant B participant "B"
+participant C participant "C"
+message A B solid arrow "start" activate
+activate C
+deactivate C
+message B A dashed arrow "done" deactivate
+message B A solid arrow "plain"

@@ -1,0 +1,8 @@
+```mermaid
+gantt
+  title A very long project
+  dateFormat YYYY-MM-DD
+  Research and discovery phase for the whole product :r1, 2023-01-01, 2024-06-30
+  Implementation :crit, i1, after r1, 400d
+  Done :milestone, m1, 2025-09-01, 0d
+```

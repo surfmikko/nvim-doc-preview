@@ -1,0 +1,4 @@
+pie showData=false title "Pets adopted"
+slice "A" value=1 pct=34
+slice "B" value=1 pct=33
+slice "C" value=1 pct=33

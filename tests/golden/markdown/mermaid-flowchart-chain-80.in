@@ -1,0 +1,7 @@
+A chain.
+
+```mermaid
+flowchart LR
+  A[Start] --> B[Middle] --> C[End]
+```
+

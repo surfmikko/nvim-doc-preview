@@ -1,0 +1,11 @@
+```mermaid
+stateDiagram-v2
+  state fork <<fork>>
+  state join <<join>>
+  [*] --> fork
+  fork --> A
+  fork --> B
+  A --> join
+  B --> join
+  join --> [*]
+```

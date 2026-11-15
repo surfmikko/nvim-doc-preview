@@ -1,0 +1,11 @@
+> ```mermaid
+> graph LR
+>   Q[Quoted node]
+> ```
+
+- item
+
+  ```mermaid
+  graph LR
+    L[Listed node]
+  ```

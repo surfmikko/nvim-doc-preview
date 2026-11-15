@@ -1,0 +1,6 @@
+erDiagram
+  %% comment
+  A ||--o{ B : has
+  classDef big fill:#f00
+  class A big
+  style B fill:#0f0

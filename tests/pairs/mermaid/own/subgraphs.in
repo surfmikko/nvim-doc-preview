@@ -1,0 +1,14 @@
+flowchart TB
+A --> B
+subgraph one [First group]
+  C --> D
+  subgraph inner
+    direction LR
+    E
+  end
+  F[Eff]
+end
+subgraph two
+  G
+end
+D --> G

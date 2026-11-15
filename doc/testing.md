@@ -1,0 +1,310 @@
+# nvim-doc-preview: testing
+
+Test strategy, reference pairs, verification levels, and reference-driven
+development (reference table, porting policy and credit). Design is in
+`doc/architecture.md`.
+
+## 1. Testing
+
+Runtime has zero dependencies; **testing may use external dependencies**.
+
+* Runner: plenary.nvim busted-style (`describe`/`it`/`assert`),
+  started as `nvim --headless -u tests/minimal_init.lua -c "PlenaryBustedDirectory tests/unit {minimal_init = 'tests/minimal_init.lua'}"`.
+  Plenary is pure Lua; it is fetched by a script (`tools/setup-test-deps`)
+  into a gitignored `deps/` directory, never vendored or required at runtime.
+* Golden runner: `tests/golden/golden_spec.lua` (`make test-golden`) renders
+  every `tests/golden/<fmt>/<name>.in` with the frontend for `<fmt>` at width 40
+  (or the number in `<name>.width`) and compares the lines to `<name>.out`.
+  Mismatches print a per-line expected/actual diff; `UPDATE_GOLDEN=1` rewrites
+  the `.out` files instead (review the diff before committing). If
+  `<name>.spans` exists it is compared too: one span per line,
+  `line col_start col_end group`, sorted by line then column (lines
+  1-based, columns 0-based byte offsets, end exclusive). `UPDATE_GOLDEN=1`
+  writes `.spans` only when the render has spans and deletes a stale one.
+* Pair runner: `tests/pairs/pairs_spec.lua` (`make test-pairs`), see section 2.
+* Tests read committed fixture files, so a normal test run needs only
+  Neovim and plenary. Oracle tools (node, java, graphviz, d2, Python
+  docutils/markdown-it-py) are needed only to (re)generate fixtures.
+* Pure-Lua modules (parsers, layout, core) avoid the Neovim API where
+  practical so they stay unit-testable without a session.
+
+Commands (see `README.md`): `make test` runs unit, integration and golden layers headless and
+exits non-zero on any failure; `make test-unit`,
+`make test-integration`, `make test-golden` and `make test-pairs` run one layer; `make deps` fetches plenary,
+pinned to a commit (`PLENARY_REV` in the `Makefile`). `tests/minimal_init.lua`
+puts the repo root and `deps/plenary.nvim` on the runtimepath and loads
+no user config. `make run [FILE=path]` (default `doc/architecture.md`) starts an interactive
+`nvim` with the host's own config and the repo root on the runtimepath, running `:DocPreview open`, for manual testing
+on the host (not part of `make test`).
+
+Test layers:
+
+1. **Unit** (`tests/unit/`): parser -> `document.model` assertions including source
+   ranges; renderer tests on hand-built `document.model` trees (format-independent); core primitives (wrap with wide chars, table fitting, canvas,
+   source-map interpolation); graph layout invariants.
+2. **Reference pairs** (`tests/pairs/`, section 2): input -> expected
+   output pairs derived from the official test suites of existing
+   implementations. Largest layer for correctness.
+3. **Golden render tests** (`tests/golden/<fmt>/<name>.in|.out`): our
+   rendered lines at a fixed width, optional `.spans` for highlights.
+   Hand-reviewed, updated with `UPDATE_GOLDEN=1` and reviewed as a diff.
+4. **Integration** (`tests/integration/`, headless Neovim, section 1.1).
+5. **Robustness**: fuzz/mutation spec asserting "never throws, never
+   exceeds width" for all frontends and engines.
+
+### 1.1 Headless integration tests
+
+Each test starts a child Neovim (`vim.fn.jobstart` with `--headless
+--embed`, driven over `nvim_*` RPC via the child's channel) or, for simple
+cases, runs inside the runner instance with real buffers and windows.
+Covered:
+
+* open/close/toggle lifecycle; closing either window or the source buffer
+  tears down the session; no leaked autocmds, timers, extmarks.
+* debounced content sync: edit source, wait for the render to finish
+  (the plugin exposes `doc_preview.wait(session, timeout)` /
+  an `User DocPreviewRendered` autocmd for tests), assert preview lines
+  and highlights (extmarks).
+* async behaviour: a slow block does not block input; a second edit
+  cancels the running job (generation check); stale results never land.
+* cursor/scroll sync both ways, loop guard, unmapped lines.
+* resize: width change re-renders; no line exceeds the new width;
+  unchanged width is a no-op. Headless nvim delivers the real
+  `WinResized` only to an attached UI, so those specs run a child nvim
+  with `nvim_ui_attach`; the rest trigger `VimResized` by hand.
+* filetype handling (`markdown`, `rst`, `.mmd`), large-file guard (one warning, edits ignored, save renders, threshold
+  configurable).
+* `:checkhealth doc_preview` output.
+
+## 2. Reference pairs from official test suites
+
+Input->output pairs come from the **official tests** of the references
+wherever they exist, because those encode the project's own definition of
+correct behaviour.
+
+| Component | Official test sources (examples) | Pair shape |
+|---|---|---|
+| Markdown | Own inputs per CommonMark/GFM spec section, expected HTML generated by `cmark` (dev-only oracle, BSD-2); the spec text and `spec.json` examples are CC BY-SA and are **not copied** (study-only) | markdown -> expected HTML, compared via our AST->HTML projection (section 3) |
+| RST | `docutils` `test/test_parsers/test_rst/**` (input -> pseudo-XML), functional tests | rst -> pseudo-XML, compared via normalised AST projection |
+| Mermaid | `mermaid.js` parser specs (`*.spec.js` per diagram type), docs examples; `mermaid-ascii` and `graph-easy` tests for drawing | mermaid -> parsed model facts; diagram -> expected ASCII where the reference is ASCII |
+| Dot | Graphviz `rtest`/graphs corpus, language docs examples | dot -> parsed model facts |
+| PlantUML | PlantUML tests/examples, language reference examples | puml -> parsed model facts |
+| D2 | D2 `testdata` / `d2oracle` and docs examples | d2 -> parsed model facts |
+
+Mechanics:
+
+* An extraction step turns the upstream tests into committed pair files:
+  `tests/pairs/<fmt>/<suite>/<case>.in` plus `.expected` (and `.meta`
+  with provenance: upstream project, version, original test id/path,
+  licence). Extraction scripts live in `tools/oracle/` and may use any
+  external tool (node, java, graphviz, d2, Python packages).
+  Where upstream expected output has to be *generated* by running the
+  tool (no stored expectation), the script does that and records the
+  command and tool version.
+* Oracle tooling is installed per platform outside shared locations
+  (keyed e.g. by `uname -sm`, or in a container-local directory), never in
+  directories shared between host and sandbox. The sandbox currently has
+  none of node/java/graphviz/d2; the scripts print what is missing, and
+  the missing tools are requested via `/opt/installer/` or run on the host.
+* Tests only read committed pair files; running the oracles is a
+  maintainer step, not part of `make test`. A CI job may rerun the oracles
+  and fail on fixture drift.
+* Pairs we cannot or do not intend to satisfy (unsupported feature,
+  intentional deviation) are listed in `tests/pairs/<fmt>/skip.lua` (a Lua table
+  `{ ["<case>"] = "reason" }`; tests are Lua, so no TOML parser)
+  with a reason (key `"<suite>/<case>"`, since case names repeat across
+  suites); they are counted and reported, never silently dropped. A skip
+  entry with no matching case, or a case that passes while skipped, fails
+  the run. A case without `.expected` (oracle not run yet) is reported as
+  `pending`, not failed; the baseline task requires none pending.
+  `tests/pairs/<fmt>/threshold.lua` (`{ <suite> = minimum passes }`)
+  makes regressions fail the run.
+* Markdown decision: inputs are written in this repo (`tests/pairs/markdown/own/`);
+  `tools/oracle/commonmark-own` runs `cmark` over them to create `.expected`
+  and `.meta` (tool, version, command); inputs named `html-*` are run with
+  `--unsafe` (without it cmark replaces raw HTML by a comment). Same approach for GFM extensions
+  (`cmark-gfm --extension`; `gfm-table-*` inputs add `--extension table`, `gfm-footnote-*` inputs add `--extension table --extension footnotes`). No spec example text is committed.
+* Pair verdicts are reported per suite, e.g. `commonmark-own: 40/52 pass,
+  12 skipped`; per-milestone thresholds are in `doc/plan.md`
+  and the runner config so regressions fail the run.
+
+## 3. Verification levels
+
+The references output HTML/XML/SVG, ours is rendered text, so pairs are
+compared at a **projection** both sides can reach:
+
+1. **Document structure** (Markdown, RST): our `document.model` is projected to the
+   reference's format (CommonMark HTML for Markdown, docutils
+   pseudo-XML-like tree for RST) by small projection modules living under
+   `tests/` only, then compared with the stored expectation. Source
+   ranges are checked separately by unit tests (references have none).
+2. **Diagram facts**: our graph model projected to facts (nodes, edges,
+   labels, shapes, subgraph membership, direction) vs the reference's
+   parse result. Layout is **not** compared against SVG pixel output;
+   instead:
+3. **Layout invariants** from the references' behaviour: no overlapping
+   nodes, edges attach to node borders, layer order follows edge
+   direction, no line wider than `width`; plus exact ASCII comparison
+   where the reference itself emits ASCII (`mermaid-ascii`,
+   `graph-easy`) and our output is intended to match; deviations are
+   documented.
+4. **Visual review** of curated documents against reference renderers
+   (`glow`, `mermaid-ascii`, `graph-easy`) at milestone reviews; accepted
+   output becomes a golden file (section 1, layer 3).
+
+## 4. Reference-driven development
+
+Existing implementations are used in two ways while building each
+component: as **code to port** (4.2) and as **sources of input->output
+test pairs** (section 2). Ported code becomes plain Lua in this repo, so
+there is no runtime dependency. The oracle tools are dev/test-time
+dependencies only and may be installed freely for that purpose.
+
+### 4.1 Reference table
+
+| Component | References | Used for |
+|---|---|---|
+| Markdown parser | CommonMark spec and GFM spec (study-only, CC BY-SA), `cmark` (dev-only oracle), `markdown-it-py`, `commonmark.js` | algorithm (block continuation, inline delimiter stack); conformance via own inputs checked against `cmark` |
+| RST parser | `docutils` (parser, pseudo-XML output, its test inputs) | grammar rules (adornments, tables, directives), expected structure |
+| Mermaid | `mermaid.js` (grammar, docs examples), `mermaid-ascii`, `graph-easy` | syntax coverage, ASCII layout/shape look |
+| Dot | Graphviz docs/gallery, `dot -Tplain` | syntax coverage, layout sanity |
+| PlantUML | PlantUML language reference, example gallery | syntax coverage, expected structure per diagram type |
+| D2 | D2 docs/examples, `d2` CLI | syntax coverage |
+| Terminal look | `glow`, `rich`/`markdown-it` terminal renderers | block spacing, list/quote/table presentation |
+
+### 4.2 Porting policy and credit
+
+Default is to **port rather than rewrite**: if an existing implementation
+solves a problem (CommonMark block/inline algorithm, docutils state
+machine rules, Sugiyama layering, edge routing, table layout, ASCII
+diagram drawing), translate it to Lua and keep its structure where it
+helps future comparison with upstream.
+
+Gate: **no port without a licence check.**
+
+1. Record the reference in `doc/references.md` before first use: name,
+   upstream URL, version/commit, licence (SPDX id), what is ported, which
+   file(s) in this repo.
+2. The repo is **MIT-licensed**. Porting is allowed from permissive,
+   MIT-compatible upstream licences: MIT, BSD-2/3-Clause, ISC, Apache-2.0
+   (with its NOTICE/attribution duties), Zlib, public domain/CC0.
+   GPL/LGPL/AGPL and MPL sources (e.g. Perl `graph-easy`, GPL parts of
+   PlantUML, docutils parts under GPL/Python licence, D2 under MPL-2.0) are
+   **study-only**: no translation, and anything that mirrors them is
+   re-derived from the specification and observed behaviour. If a file's
+   licence is unclear, treat it as study-only. Test data follows the same
+   rule, with one exception to check per case: test inputs from GPL suites
+   may be used as inputs only if they are trivially non-copyrightable or
+   the licence permits; otherwise write equivalent inputs.
+3. Credit in **both** places:
+   * **Docs**: `doc/references.md` entry and a line in root `NOTICE`
+     including the full upstream copyright and licence text where the
+     licence requires it (MIT/BSD/Apache notices are reproduced).
+   * **Code**: every ported file starts with a header comment: upstream
+     project, version/commit, original file(s)/function(s), SPDX licence,
+     copyright holder, "ported to Lua". Larger ported functions that were
+     merged into otherwise original files get a comment at the function.
+4. Ported code keeps upstream attribution even after modification;
+   modifications are noted in the header ("changed: ...").
+5. Test data copied from upstream test suites follows the same rules
+   (provenance header per fixture file, entry in `NOTICE`).
+
+## 5. Static analysis and quality gates
+
+Implemented (issue 0005). Gates run from `make format-check`, `make lint`,
+`make size`, `make banned` and are part of `make ci`. They are dev-only tools;
+the zero-runtime-dependency rule is unaffected.
+
+| Gate | Tool | Rule |
+|---|---|---|
+| Style | `stylua --check` | one `stylua.toml`, no style debate in review |
+| Lint | `luacheck` | unused vars, accidental globals, shadowing; `vim` allowed as global in `.luacheckrc` |
+| Complexity | `luacheck` (`max_cyclomatic_complexity`, warning 561) | 10 per function (starting value, tune later) |
+| Module size | `tools/check-size` (`wc -l`) | 400 lines per file in `lua/` (starting value) |
+| Banned APIs | `tools/check-banned` (grep) on `lua/`, `plugin/` | no `os.execute`, `io.popen`, `vim.system`, `vim.fn.system`, `jobstart`, `.spawn(`, `load`, `loadstring`; no `require` outside `doc_preview` (enforces "no external processes, zero runtime deps") |
+| SAST (optional) | Semgrep with community rules (5.1), `make sast` | external reference check, not required for `make ci`; no own rules maintained |
+| Robustness | fuzz spec (section 1, layer 5) | crafted documents must not throw, hang or exceed width |
+
+Optional later: `lua-language-server --check` for type/annotation errors
+(Neovim core uses LuaLS + stylua and has proposed dropping luacheck for
+false positives; revisit if luacheck is noisy).
+
+### 5.1 Lua SAST tools (research, checked 2026-11)
+
+No mature, maintained Lua equivalent of Python's bandit was found.
+
+| Tool | Status | Verdict |
+|---|---|---|
+| Semgrep (OSS CLI) | free (LGPL-2.1), runs locally with no account; Lua is **experimental**, not GA; older issues report patterns failing ([#6411](https://github.com/semgrep/semgrep/issues/6411)). Hosted platform, Pro engine and proprietary rules need an account | usable as an optional external check |
+| [ligurio/semgrep-rules](https://github.com/ligurio/semgrep-rules) | MIT; ~80 Lua rules (pitfalls, deprecated APIs, nil handling), many Tarantool-specific. Security-relevant: L1050 (`load`, `os.execute`, `io.popen`), L1065 (FFI). INFO-severity rules are heuristics with false positives. Last commit date unverified (possibly years old) | the community ruleset to use; verify against current Semgrep before relying on it |
+| [Costin et al., "Lua code: security overview and static analysis"](https://ieeexplore.ieee.org/document/8227299/) (2017) | academic proof of concept for web vulnerabilities, tested on synthetic samples | not usable; hosting (lua.re, lua.rocks) unverified |
+| TscanCode (Tencent) | general C/C++/C#/Lua bug scanner, GPLv3 | not security-focused; licence is a poor fit |
+| luacheck / selene / LuaLS | lint and type checks, no security rules | quality gates only |
+| Commercial (SonarQube, Checkmarx, Fortify, ...) | Lua support unverified | not evaluated |
+
+Decision: the required security gate is the banned-API grep (section 5
+table). Semgrep with ligurio/semgrep-rules is an **optional** extra,
+treated like the oracle tools: a dev-time reference, installed per machine,
+rules cloned into gitignored `deps/` (never vendored, never edited here):
+
+```
+semgrep --config deps/semgrep-rules/rules/lua --severity ERROR --severity WARNING lua/
+```
+
+Not part of `make ci`; run via `make sast`. Revisit making it required if
+Lua reaches GA support in Semgrep or the ruleset proves low-noise.
+
+## 6. Documentation gates
+
+Planned, not implemented yet. `make docs-check` is part of `make ci`.
+Dev-only tools, each a single binary (no node or runtime needed).
+
+| Gate | Tool | Rule |
+|---|---|---|
+| Markdown lint | `rumdl` | one `.rumdl.toml`; consistent headings, lists, fenced-code languages, no trailing spaces, single H1 |
+| Line length | `rumdl` MD013 | prose wrapped at about 80 columns (convention), hard limit 100; tables, code blocks and links exempt |
+| Links | `lychee --offline` | broken relative links and anchors fail the run |
+| Spelling | `typos` | small allowlist for project terms (`docutils`, `mermaid`, ...) |
+| Index | shell check in the Makefile | every file in `doc/` is listed in `CLAUDE.md`, and every `doc/` path named there exists |
+
+External URL checking (`lychee` online, e.g. the links in 5.1) is a
+separate optional `make docs-links`: network makes it flaky, so it is not
+part of `make ci`.
+
+Tool choice: `rumdl` over `markdownlint-cli2` because it is one fast binary
+and needs no node; both read similar rule sets (MD0xx), so switching later
+is cheap. Skipped on purpose: prose-style linters (Vale: noisy) and doc
+coverage metrics.
+
+## 7. Installing dev tools
+
+Prefer **within-repo** installs over global ones. Native binaries are
+platform-specific, so every location below is per platform (the host's
+`venv/`, the sandbox's `venv-claude/`; never shared). Pure-Lua `deps/`
+(plenary) is the only shared download.
+
+| Tool | Preferred install | Fallback |
+|---|---|---|
+| `rumdl`, `typos` | `pip install` into the Python venv (both publish PyPI wheels; verify on first setup) | `port install` (MacPorts, macOS) or `cargo install --root <per-platform dir>` |
+| `luacheck` | `luarocks --tree <per-platform dir> install luacheck` (needs a C module, so per platform) | `sudo port install lua-luacheck` |
+| `vhs`, `ttyd`, `ffmpeg` (`make demo`) | no in-repo install (dev-only, demo recording; not pinned: if a new version breaks `tools/demo/demo.tape`, fix the tape) | `make ports` (macOS, MacPorts: vhs, ttyd, ffmpeg), apt/dnf on Linux |
+| `stylua`, `lychee`, `semgrep` | `semgrep`: `pip install` into the venv. `stylua`, `lychee`: `cargo install --root <per-platform dir>` | `port install` (check `port search` for availability) |
+
+The Makefile finds tools on `PATH` first, so the venv or tree `bin/` is
+prepended by the setup step; a missing tool fails with a one-line hint
+naming the preferred install. Setup writes only to the per-platform
+directories above.
+
+`make tools` installs stylua (`cargo install --root`), luacheck
+(`luarocks --tree`) into `TOOLDIR`
+(default `.tools/<uname -sm>`, gitignored; override with
+`make ci TOOLDIR=<dir>`). It needs cargo and luarocks on `PATH`; a
+missing one fails with the shell's own error. `rumdl`/`typos`/`lychee`/
+`semgrep` are not set up yet. `make deps` fetches plenary only.
+
+Global tools that cannot live in the repo are installed on macOS with
+`make ports` (`PORTS ?= vhs ttyd ffmpeg cmark cmark-gfm`, MacPorts `port install`, one `sudo`
+call; installed ports are skipped by `port`; never Homebrew). It is not part of
+`make tools`, `deps`, `test` or `ci`. Per-platform tools come from
+`make tools`, which must run as the normal user, not with sudo (it refuses
+as root, so no root-owned files end up in `.tools/`).

@@ -1,0 +1,11 @@
+direction LR
+class Animal "Animal"
+  member "+int legs"
+  method "+eat(food) bool"
+class Duck "Duck"
+  annotation "abstract"
+  member "+String beak"
+  member "-int age$"
+  method "+swim() void"
+  method "+quack()* String"
+relation Animal Duck solid tail=triangle head=none

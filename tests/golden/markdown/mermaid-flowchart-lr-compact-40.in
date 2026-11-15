@@ -1,0 +1,5 @@
+```mermaid
+flowchart LR
+  A[Alpha] --> B[Beta] --> C[Gamma]
+```
+

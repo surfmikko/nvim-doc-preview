@@ -1,0 +1,11 @@
+direction TD
+node A rect "rect"
+node B round "round"
+node C stadium "stadium"
+node D subroutine "sub"
+node E circle "circle"
+node F rhombus "rhombus"
+node G hexagon "hexagon"
+node H cylinder "db"
+node I rect "asym"
+node J rect "trap"

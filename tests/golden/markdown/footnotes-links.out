@@ -1,0 +1,11 @@
+See the site[1] and a note[^1], then
+more[2] and another[^2].
+
+Footnotes
+1. A note with a link[3].
+2. Plain note.
+
+Links
+[1] https://example.com
+[2] https://example.org/x
+[3] https://example.net

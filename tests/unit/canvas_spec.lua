@@ -1,0 +1,160 @@
+local canvas = require("doc_preview.core.canvas")
+local text = require("doc_preview.core.text")
+
+local function lines(c)
+  return c:to_output().lines
+end
+
+describe("core.canvas", function()
+  it("puts text and trims trailing blanks", function()
+    local c = canvas.new(10, 2)
+    c:put(2, 0, "ab")
+    assert.same({ "  ab", "" }, lines(c))
+  end)
+
+  it("clips text at the grid edges", function()
+    local c = canvas.new(4, 1)
+    c:put(-2, 0, "abcdefgh")
+    assert.same({ "cdef" }, lines(c))
+    c:put(3, 5, "zz")
+    c:put(9, 0, "zz")
+    assert.same({ "cdef" }, lines(c))
+  end)
+
+  it("lets a later put overwrite an earlier one", function()
+    local c = canvas.new(5, 1)
+    c:put(0, 0, "aaaaa")
+    c:put(1, 0, "bb")
+    assert.same({ "abbaa" }, lines(c))
+  end)
+
+  it("places wide chars in two cells", function()
+    local c = canvas.new(6, 1)
+    c:put(1, 0, "漢x")
+    local l = lines(c)[1]
+    assert.equals(" 漢x", l)
+    assert.equals(4, text.width(l))
+  end)
+
+  it("replaces a wide char that does not fit", function()
+    local c = canvas.new(3, 1)
+    c:put(2, 0, "漢")
+    assert.same({ "  ?" }, lines(c))
+  end)
+
+  it("blanks the other half when overwriting half of a wide char", function()
+    local c = canvas.new(4, 1)
+    c:put(0, 0, "漢")
+    c:put(1, 0, "x")
+    assert.same({ " x" }, lines(c))
+    c:put(0, 0, "漢")
+    c:put(0, 0, "y")
+    assert.same({ "y" }, lines(c))
+  end)
+
+  it("draws lines and merges crossings", function()
+    local c = canvas.new(5, 3)
+    c:hline(0, 1, 5)
+    c:vline(2, 0, 3)
+    assert.same({ "  │", "──┼──", "  │" }, lines(c))
+  end)
+
+  it("merges a line ending on another into a junction", function()
+    local c = canvas.new(5, 3)
+    c:hline(0, 1, 5)
+    c:vline(2, 1, 2)
+    assert.same({ "", "──┬──", "  │" }, lines(c))
+  end)
+
+  it("uses plus for junctions in ascii", function()
+    local c = canvas.new(5, 3, "ascii")
+    c:hline(0, 1, 5)
+    c:vline(2, 0, 3)
+    assert.same({ "  |", "--+--", "  |" }, lines(c))
+  end)
+
+  it("draws a box and lets lines join its border", function()
+    local c = canvas.new(5, 4)
+    c:box(0, 0, 5, 3)
+    c:vline(2, 2, 2)
+    assert.same({ "┌───┐", "│   │", "└─┬─┘", "  │" }, lines(c))
+  end)
+
+  it("draws a box with custom glyphs", function()
+    local c = canvas.new(4, 3)
+    c:box(0, 0, 4, 3, nil, { h = "─", v = "│", tl = "╭", tr = "╮", bl = "╰", br = "╯" })
+    assert.same({ "╭──╮", "│  │", "╰──╯" }, lines(c))
+  end)
+
+  it("draws arrow heads per charset", function()
+    local c = canvas.new(4, 1)
+    c:arrow(0, 0, "right")
+    c:arrow(1, 0, "left")
+    c:arrow(2, 0, "up")
+    c:arrow(3, 0, "down")
+    assert.same({ "▶◀▲▼" }, lines(c))
+    local a = canvas.new(2, 1, "ascii")
+    a:arrow(0, 0, "right")
+    a:arrow(1, 0, "down")
+    assert.same({ ">v" }, lines(a))
+  end)
+
+  it("emits merged spans with byte columns", function()
+    local c = canvas.new(8, 1)
+    c:hline(0, 0, 3, "E")
+    c:put(3, 0, " ")
+    c:put(4, 0, "漢a", "L")
+    local spans = c:to_output().spans
+    assert.equals(0, spans[1].col_start)
+    assert.equals(9, spans[1].col_end)
+    assert.equals("E", spans[1].hl_group)
+    assert.equals(10, spans[2].col_start)
+    assert.equals(14, spans[2].col_end)
+    assert.equals("L", spans[2].hl_group)
+  end)
+
+  it("never makes a line wider than the grid", function()
+    local c = canvas.new(7, 3)
+    c:put(0, 0, "漢字漢字漢字漢字")
+    c:box(0, 1, 7, 2)
+    c:hline(-3, 2, 20)
+    for _, l in ipairs(lines(c)) do
+      assert.is_true(text.width(l) <= 7)
+    end
+  end)
+end)
+
+describe("core.canvas line styles", function()
+  it("draws dotted and thick runs and corners", function()
+    local c = canvas.new(3, 3)
+    c:hline(0, 0, 3, nil, "dotted")
+    c:vline(0, 0, 3, nil, "thick")
+    assert.same({ "┏┄┄", "┃", "┃" }, lines(c))
+    c = canvas.new(3, 2, "ascii")
+    c:hline(0, 0, 3, nil, "thick")
+    c:vline(2, 0, 2, nil, "dotted")
+    assert.same({ "==+", "  :" }, lines(c))
+  end)
+
+  it("uses a left and right side glyph in boxes", function()
+    local c = canvas.new(4, 3)
+    c:box(
+      0,
+      0,
+      4,
+      3,
+      nil,
+      { h = "-", v = "|", tl = "+", tr = "+", bl = "+", br = "+", vl = "(", vr = ")" }
+    )
+    assert.same({ "+--+", "()", "+--+" }, { lines(c)[1], lines(c)[2]:gsub("  ", ""), lines(c)[3] })
+  end)
+
+  it("reports blank cells inside the grid", function()
+    local c = canvas.new(4, 1)
+    c:put(2, 0, "x")
+    assert.is_true(c:is_blank(0, 0, 2))
+    assert.is_false(c:is_blank(1, 0, 2))
+    assert.is_false(c:is_blank(3, 0, 2))
+    assert.is_false(c:is_blank(0, 1, 1))
+  end)
+end)

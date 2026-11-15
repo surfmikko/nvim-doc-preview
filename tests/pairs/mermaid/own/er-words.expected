@@ -1,0 +1,7 @@
+direction TD
+entity A "A"
+entity B "B"
+entity C "C"
+relationship A B identifying tail=zero_one head=zero_many "x"
+relationship A C non-identifying tail=one head=one_many "quoted label"
+relationship A B identifying tail=zero_many head=one_many

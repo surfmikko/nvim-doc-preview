@@ -1,0 +1,3 @@
+Not a ref \[^e] here.
+
+[^e]: Defined but escaped.

@@ -1,0 +1,8 @@
+gantt
+  title Plan
+  dateFormat YYYY-MM-DD
+  section Build
+  Design :done, d1, 2024-01-01, 3d
+  Code :active, c1, after d1, 1w
+  Ship :crit, s1, 2024-01-12, 2024-01-15
+  section Empty

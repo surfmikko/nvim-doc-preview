@@ -1,0 +1,70 @@
+# Runs `make ci` (format-check, lint, size, banned, test) on a Neovim matrix.
+# Pair tests compare against stored baselines; cmark/cmark-gfm are not needed.
+# Third-party actions are pinned to floating major tags (e.g. @v5).
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  STYLUA_VERSION: "0.20.0"
+  LUACHECK_VERSION: "1.2.0"
+
+jobs:
+  ci:
+    name: nvim ${{ matrix.nvim }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        nvim: [v0.10.4, stable, nightly]
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: ${{ matrix.nvim }}
+
+      - uses: leafo/gh-actions-lua@v13
+        with:
+          luaVersion: "5.4"
+
+      - uses: leafo/gh-actions-luarocks@v6
+
+      - name: Cache dev tools
+        id: tools-cache
+        uses: actions/cache@v5
+        with:
+          path: .tools
+          key: tools-v2-${{ runner.os }}-${{ runner.arch }}-${{ env.STYLUA_VERSION }}-${{ env.LUACHECK_VERSION }}
+
+      # Same layout as `make tools` (TOOLDIR), without vhs (demo only).
+      - name: Install stylua and luacheck
+        if: steps.tools-cache.outputs.cache-hit != 'true'
+        run: |
+          set -eux
+          tooldir=".tools/$(uname -sm | tr ' ' '-')"
+          cargo install stylua --locked --version "$STYLUA_VERSION" --root "$tooldir"
+          luarocks --tree "$tooldir" install luacheck "$LUACHECK_VERSION"
+
+      # Fail here, with the tool dir listing, if the tools are not where
+      # the Makefile's PATH expects them.
+      - name: Verify dev tools
+        run: |
+          tooldir=".tools/$(uname -sm | tr ' ' '-')"
+          # Also put the tools on PATH for later steps: macOS ships GNU make
+          # 3.81, which may look up recipe commands in its start-up PATH
+          # instead of the PATH the Makefile exports.
+          echo "$PWD/$tooldir/bin" >> "$GITHUB_PATH"
+          ls -la "$tooldir/bin"
+          "$tooldir/bin/stylua" --version
+          "$tooldir/bin/luacheck" --version
+
+      - run: make ci

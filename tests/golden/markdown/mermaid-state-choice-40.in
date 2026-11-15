@@ -1,0 +1,7 @@
+```mermaid
+stateDiagram-v2
+  state check <<choice>>
+  [*] --> check
+  check --> Ok : valid
+  check --> Bad : invalid
+```

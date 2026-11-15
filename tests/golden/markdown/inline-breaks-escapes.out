@@ -1,0 +1,9 @@
+First line
+after a hard break, and
+after a backslash break, then a soft
+break.
+
+Escapes: *not em*, `not code`, \ and \a
+stay.
+
+Entities: & <b> © A B &nosuch; *star*.

@@ -1,0 +1,29 @@
+Backtick fence with a language:
+
+local x = 1
+print(x)
+
+Tilde fence:
+
+plain tilde
+  indented line
+
+Long line wrapping:
+
+this is a very long code line that must 
+wrap at the window width
+
+Empty fence:
+
+
+
+Blank lines inside:
+
+first
+
+  third after blank
+
+
+Unclosed at the end:
+
+echo unclosed

@@ -1,0 +1,12 @@
+```mermaid
+sequenceDiagram
+participant A
+participant B
+participant C
+Note left of A: left side
+Note right of C: right side
+Note over B: middle
+A->>C: across all three
+Note over A,C: spans A to C
+A->>A: to myself
+```

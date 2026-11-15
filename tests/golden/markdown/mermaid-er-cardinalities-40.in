@@ -1,0 +1,7 @@
+```mermaid
+erDiagram
+  A ||--|| B : one
+  B |o--o| C : zero_one
+  C }o--o{ D : many
+  D }|--|{ E : more
+```

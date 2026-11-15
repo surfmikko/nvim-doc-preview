@@ -1,0 +1,6 @@
+gantt
+  Later :l, after a b, 2d
+  A :a, 2024-02-01, 2d
+  B :b, 2024-02-02, 5d
+  Until :u, 2024-02-01, until b
+  Follows :2d

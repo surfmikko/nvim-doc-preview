@@ -1,0 +1,12 @@
+direction TD
+node A rect "A"
+node B rect "B"
+node C rect "C"
+node D rect "D"
+node E rect "E"
+node F rect "F"
+edge A B solid head=arrow tail=none length=2
+edge A C solid head=arrow tail=none length=3
+edge A D solid head=none tail=none length=2
+edge A E dotted head=arrow tail=none length=2
+edge A F thick head=arrow tail=none length=2

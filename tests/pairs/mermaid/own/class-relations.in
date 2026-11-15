@@ -1,0 +1,13 @@
+classDiagram
+  A <|-- B
+  C --|> D
+  E *-- F
+  G o-- H
+  I --> J
+  K <-- L
+  M -- N
+  O ..> P
+  Q ..|> R
+  S .. T
+  U --* V
+  W --o X

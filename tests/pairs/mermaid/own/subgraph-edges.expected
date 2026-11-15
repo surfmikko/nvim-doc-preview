@@ -1,0 +1,8 @@
+direction LR
+node A rect "A"
+node B rect "B"
+subgraph s1 "Left" nodes=A
+subgraph s2 "Right" nodes=B
+edge A s2 solid head=arrow tail=none length=1
+edge s1 B dotted head=arrow tail=none length=1
+edge s1 s2 solid head=arrow tail=none length=1

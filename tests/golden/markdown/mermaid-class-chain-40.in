@@ -1,0 +1,8 @@
+```mermaid
+classDiagram
+  Animal <|-- Mammal
+  Mammal <|-- Dog
+  Animal : +String name
+  Animal : +eat()
+  Dog : +bark()
+```

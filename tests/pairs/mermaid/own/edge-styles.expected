@@ -1,0 +1,24 @@
+direction LR
+node A rect "A"
+node B rect "B"
+node C rect "C"
+node D rect "D"
+node E rect "E"
+node F rect "F"
+node G rect "G"
+node H rect "H"
+node I rect "I"
+node J rect "J"
+node K rect "K"
+node L rect "L"
+edge A B solid head=arrow tail=none length=1
+edge A C solid head=none tail=none length=1
+edge A D dotted head=arrow tail=none length=1
+edge A E dotted head=none tail=none length=1
+edge A F thick head=arrow tail=none length=1
+edge A G thick head=none tail=none length=1
+edge A H solid head=circle tail=none length=1
+edge A I solid head=cross tail=none length=1
+edge A J solid head=arrow tail=arrow length=1
+edge A K solid head=circle tail=circle length=1
+edge A L solid head=cross tail=cross length=1

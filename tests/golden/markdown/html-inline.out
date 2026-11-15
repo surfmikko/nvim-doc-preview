@@ -1,0 +1,16 @@
+Some <b>bold</b> and <i attr="v"
+other='w' bare=x>italic</i> text with a
+<br/> break.
+
+A comment <!-- hidden --> inside, a PI
+<?pi data?> and a declaration <!DOCTYPE
+x> here, plus <![CDATA[ raw ]]> data.
+
+A long wrapped paragraph with <span
+class="highlight" data-value="some long
+attribute value">inline tags</span> that
+wrap around the window width.
+
+Heading with <em>tag</em>
+
+Not a tag: a < b and <1abc> stay text.

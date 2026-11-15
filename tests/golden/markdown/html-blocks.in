@@ -1,0 +1,39 @@
+<script>
+if (a < b) {
+
+  run();
+}
+</script>
+
+<!-- a comment
+
+with a blank line -->
+
+<?php echo "pi"; ?>
+
+<!DOCTYPE html>
+
+<![CDATA[ raw
+data ]]>
+
+<div class="outer">
+  # not a heading
+  - not a list
+</div>
+
+<custom-tag attr="1">
+
+<pre>
+  keep   spacing
+	tab line
+
+  after blank
+</pre>
+
+text before
+<div>interrupts the paragraph</div>
+
+Paragraph after the block.
+
+<div>short</div>
+A very long line of html inside a block that must be hard wrapped at the window width <span>x</span>

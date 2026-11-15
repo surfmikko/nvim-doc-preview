@@ -1,0 +1,14 @@
+<table>
+<thead>
+<tr>
+<th><em>a</em></th>
+<th><strong>b</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>c</em></td>
+<td><code>d</code></td>
+</tr>
+</tbody>
+</table>

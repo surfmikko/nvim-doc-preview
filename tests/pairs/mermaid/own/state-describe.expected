@@ -1,0 +1,7 @@
+direction LR
+state s1 round "Long name here"
+  desc "first line"
+  desc "second line"
+state s2 round "s2"
+  desc "only desc"
+transition s1 s2

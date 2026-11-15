@@ -1,0 +1,9 @@
+```mermaid
+erDiagram
+  CUSTOMER {
+    string name PK
+    int id PK, FK "key"
+    string email UK "unique"
+  }
+  CUSTOMER ||..o{ ORDER : places
+```

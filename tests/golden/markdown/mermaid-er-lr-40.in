@@ -1,0 +1,6 @@
+```mermaid
+erDiagram
+  direction LR
+  CUSTOMER ||--o{ ORDER : places
+  ORDER ||--|{ LINE : contains
+```

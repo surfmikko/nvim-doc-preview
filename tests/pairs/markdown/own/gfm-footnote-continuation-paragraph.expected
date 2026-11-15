@@ -1,0 +1,9 @@
+<p>Text<sup class="footnote-ref"><a href="#fn-p" id="fnref-p" data-footnote-ref>1</a></sup>.</p>
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="fn-p">
+<p>Opening paragraph.</p>
+<p>Second paragraph of the note. <a href="#fnref-p" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a></p>
+</li>
+</ol>
+</section>

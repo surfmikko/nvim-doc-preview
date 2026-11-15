@@ -1,0 +1,10 @@
+```mermaid
+classDiagram
+  H "1" --> "*" I : has
+  A <|-- B : inherits
+  B *-- C : owns
+  C o-- D
+  D --> E : uses
+  E ..> F
+  F ..|> G
+```

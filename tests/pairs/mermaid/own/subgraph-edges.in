@@ -1,0 +1,10 @@
+graph LR
+subgraph s1 [Left]
+  A
+end
+subgraph s2 [Right]
+  B
+end
+A --> s2
+s1 -.-> B
+s1 --> s2

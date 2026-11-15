@@ -1,0 +1,4 @@
+direction TD
+class A "A"
+class B "B"
+relation A B solid tail=none head=arrow

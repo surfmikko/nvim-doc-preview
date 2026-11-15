@@ -1,0 +1,7 @@
+deps/
+.tools/
+*.log
+/log
+/test
+/table.png
+doc/tags

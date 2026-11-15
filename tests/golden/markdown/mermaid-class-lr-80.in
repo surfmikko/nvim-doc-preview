@@ -1,0 +1,7 @@
+```mermaid
+classDiagram
+  direction LR
+  Order "1" --> "*" Line : contains
+  Line --> Product
+  Product <|-- Book
+```

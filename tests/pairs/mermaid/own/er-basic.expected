@@ -1,0 +1,8 @@
+direction TD
+entity CUSTOMER "CUSTOMER"
+entity ORDER "ORDER"
+entity LINE-ITEM "LINE-ITEM"
+entity DELIVERY-ADDRESS "DELIVERY-ADDRESS"
+relationship CUSTOMER ORDER identifying tail=one head=zero_many "places"
+relationship ORDER LINE-ITEM identifying tail=one head=one_many "contains"
+relationship CUSTOMER DELIVERY-ADDRESS non-identifying tail=one_many head=one_many "uses"

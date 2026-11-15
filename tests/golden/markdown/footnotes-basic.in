@@ -1,0 +1,8 @@
+# Notes
+
+The first claim[^a] needs a source, and
+the second[^b] needs another. The first
+claim again[^a] shares its number.
+
+[^b]: Second source, defined first.
+[^a]: First source.

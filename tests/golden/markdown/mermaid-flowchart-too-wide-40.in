@@ -1,0 +1,9 @@
+```mermaid
+flowchart TD
+  A[Alpha] --> B[Beta]
+  A --> C[Gamma]
+  A --> D[Delta]
+  A --> E[Epsilon]
+  A --> F[Zeta]
+```
+

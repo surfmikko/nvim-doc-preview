@@ -1,0 +1,8 @@
+flowchart TD
+A[Start] --> B
+classDef green fill:#9f6,stroke:#333
+class A green
+style B fill:#f9f
+linkStyle 0 stroke:#f00
+click A callback "tip"
+%% a comment

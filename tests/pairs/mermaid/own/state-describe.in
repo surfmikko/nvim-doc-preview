@@ -1,0 +1,7 @@
+stateDiagram
+  direction LR
+  state "Long name here" as s1
+  s1 : first line
+  s1 : second line
+  s2 : only desc
+  s1 --> s2

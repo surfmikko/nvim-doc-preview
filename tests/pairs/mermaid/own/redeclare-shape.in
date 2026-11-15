@@ -1,0 +1,5 @@
+flowchart TD
+A[Box]
+A{Choice}
+A
+A((Dot))

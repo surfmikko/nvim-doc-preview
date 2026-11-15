@@ -1,0 +1,7 @@
+direction TD
+entity p "Person Entity"
+  attr string name
+entity car "Car"
+entity quoted name "quoted name"
+relationship quoted name p identifying tail=one head=zero_many "owns"
+relationship p car identifying tail=one head=zero_many "drives"

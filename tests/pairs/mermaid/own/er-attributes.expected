@@ -1,0 +1,8 @@
+direction TD
+entity CUSTOMER "CUSTOMER"
+  attr string name keys=PK
+  attr int id keys=PK,FK "surrogate key"
+  attr varchar(255) email keys=UK
+  attr date born
+entity EMPTY "EMPTY"
+entity EMPTY2 "EMPTY2"

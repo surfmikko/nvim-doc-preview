@@ -1,0 +1,10 @@
+erDiagram
+  CUSTOMER {
+    string name PK
+    int id PK, FK "surrogate key"
+    varchar(255) email UK
+    date born
+  }
+  EMPTY {
+  }
+  EMPTY2 {}

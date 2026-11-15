@@ -1,0 +1,12 @@
+<ul>
+<li>
+<p>item with note<sup class="footnote-ref"><a href="#fn-i" id="fnref-i" data-footnote-ref>1</a></sup></p>
+</li>
+</ul>
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="fn-i">
+<p>Note inside a list item. <a href="#fnref-i" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a></p>
+</li>
+</ol>
+</section>

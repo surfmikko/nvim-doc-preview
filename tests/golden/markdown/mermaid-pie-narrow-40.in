@@ -1,0 +1,5 @@
+```mermaid
+pie showData
+  "A very long label for the first slice" : 10
+  "Another quite long label" : 90
+```

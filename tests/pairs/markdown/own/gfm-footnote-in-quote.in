@@ -1,0 +1,5 @@
+Quoted reference.
+
+> Inside[^q] a quote.
+>
+> [^q]: Note from the quote.

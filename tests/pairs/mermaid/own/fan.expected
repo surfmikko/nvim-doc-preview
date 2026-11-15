@@ -1,0 +1,9 @@
+direction LR
+node A rect "A"
+node B rect "B"
+node C rect "C"
+node D rect "D"
+edge A C solid head=arrow tail=none length=1
+edge A D solid head=arrow tail=none length=1
+edge B C solid head=arrow tail=none length=1
+edge B D solid head=arrow tail=none length=1

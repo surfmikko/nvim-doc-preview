@@ -1,0 +1,8 @@
+<p>See <sup class="footnote-ref"><a href="#fn-u" id="fnref-u" data-footnote-ref>1</a></sup> for the address.</p>
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="fn-u">
+<p>https://example.com/page <a href="#fnref-u" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a></p>
+</li>
+</ol>
+</section>

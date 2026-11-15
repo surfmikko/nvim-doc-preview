@@ -1,0 +1,8 @@
+direction LR
+entity A "A"
+entity B "B"
+relationship A B identifying tail=one head=one "r1"
+relationship A B identifying tail=zero_one head=zero_one "r2"
+relationship A B identifying tail=zero_many head=zero_many "r3"
+relationship A B identifying tail=one_many head=one_many "r4"
+relationship A B non-identifying tail=zero_one head=one_many "r5"

@@ -1,0 +1,77 @@
+*doc_preview.txt*  Preview Markdown and Mermaid in a read-only split
+
+                         DOC PREVIEW
+
+==============================================================================
+CONTENTS                                                    *doc_preview-contents*
+
+  1. Introduction ........................ |doc_preview-intro|
+  2. Commands ............................ |doc_preview-commands|
+  3. Configuration ....................... |doc_preview-config|
+  4. Mappings ............................ |doc_preview-mappings|
+  5. Health check ........................ |doc_preview-health|
+
+==============================================================================
+1. INTRODUCTION                                                *doc_preview-intro*
+
+doc_preview renders the current Markdown buffer, with Mermaid diagrams drawn
+as text, into a read-only preview. Rendering is asynchronous and cancellable,
+re-runs on edits, and wraps to the window width. Cursor and scroll positions
+follow each other between source and preview. The plugin needs Neovim 0.10
+and has no other dependencies. It works without calling |doc_preview.setup()|.
+
+==============================================================================
+2. COMMANDS                                                  *doc_preview-commands*
+
+                                                                  *:DocPreview*
+:DocPreview                 Toggle the preview (same as `toggle`).
+:DocPreview open [layout]   Open the preview.
+:DocPreview close           Close the preview.
+:DocPreview toggle [layout] Close the preview if open, otherwise open it.
+:DocPreview sync on         Turn cursor and scroll sync on.
+:DocPreview sync off        Turn cursor and scroll sync off.
+
+`layout` is one of `vsplit`, `hsplit` or `replace`. It overrides the `layout`
+option for that preview. `replace` shows the preview in the current window.
+
+==============================================================================
+3. CONFIGURATION                                               *doc_preview-config*
+
+                                                             *doc_preview.setup()*
+require("doc_preview").setup({opts})
+
+Optional. Unknown keys and invalid values raise an error. Defaults: >lua
+  require("doc_preview").setup({
+    debounce_ms = 150,
+    large_file_lines = 5000,
+    max_width = 100,
+    layout = "vsplit",   -- vsplit | hsplit | replace
+    charset = "unicode", -- unicode | ascii
+    sync = { cursor = true, scroll = true },
+    engines = { mermaid = true }, -- false shows the block as plain code
+    keymaps = { close = "q" },    -- lhs or false; keymaps = false for none
+  })
+<
+`debounce_ms`       Delay between an edit and the re-render.
+`large_file_lines`  Above this many lines, refresh only on save.
+`max_width`         Hard-wrap width is min(window width, max_width).
+`charset`           `ascii` draws diagrams and boxes with ASCII only.
+
+==============================================================================
+4. MAPPINGS                                                  *doc_preview-mappings*
+
+In the preview buffer:
+
+`q`    Close the preview (option `keymaps.close`).
+
+The plugin defines no global mappings. Example: >lua
+  vim.keymap.set("n", "<leader>p", "<cmd>DocPreview toggle replace<cr>")
+<
+==============================================================================
+5. HEALTH CHECK                                                 *doc_preview-health*
+
+Run `:checkhealth doc_preview` to verify the Neovim version, that the command
+is registered, that 'encoding' suits the `charset` option, and that the
+configuration is valid.
+
+ vim:tw=78:ts=8:ft=help:norl:

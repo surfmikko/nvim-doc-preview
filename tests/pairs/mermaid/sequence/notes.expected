@@ -1,0 +1,7 @@
+participant A participant "A"
+participant B participant "B"
+note left A "left"
+note right B "right"
+note over A "one"
+note over A,B "both"
+message A B solid arrow "hi"

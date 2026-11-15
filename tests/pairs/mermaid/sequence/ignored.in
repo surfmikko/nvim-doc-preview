@@ -1,0 +1,10 @@
+%% comment
+sequenceDiagram
+title Demo
+accTitle: x
+A->>B: hi; B->>A: yo
+box Purple Team
+participant A
+participant B
+end
+destroy B

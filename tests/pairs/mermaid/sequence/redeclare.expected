@@ -1,0 +1,3 @@
+participant A actor "A"
+participant B participant "Bee"
+message A B solid arrow "x"

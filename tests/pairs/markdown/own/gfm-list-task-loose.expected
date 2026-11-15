@@ -1,0 +1,8 @@
+<ul>
+<li><input type="checkbox" disabled="" /> 
+<p>a</p>
+</li>
+<li><input type="checkbox" checked="" disabled="" /> 
+<p>b</p>
+</li>
+</ul>

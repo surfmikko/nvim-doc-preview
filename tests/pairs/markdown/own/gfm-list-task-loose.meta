@@ -1,0 +1,5 @@
+upstream: cmark-gfm (https://github.com/github/cmark-gfm)
+tool-version: cmark-gfm 0.29.0.gfm.13 - CommonMark with GitHub Flavored Markdown converter
+command: cmark-gfm --extension strikethrough --extension tasklist --to html <case>.in
+tool-licence: BSD-2-Clause
+input: written for this repo

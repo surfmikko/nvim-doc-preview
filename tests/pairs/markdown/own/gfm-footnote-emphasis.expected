@@ -1,0 +1,8 @@
+<p>This is <em>very<sup class="footnote-ref"><a href="#fn-v" id="fnref-v" data-footnote-ref>1</a></sup></em> important and <strong>bold</strong><sup class="footnote-ref"><a href="#fn-v" id="fnref-v-2" data-footnote-ref>1</a></sup>.</p>
+<section class="footnotes" data-footnotes>
+<ol>
+<li id="fn-v">
+<p>Emphasis note. <a href="#fnref-v" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1" aria-label="Back to reference 1">↩</a> <a href="#fnref-v-2" class="footnote-backref" data-footnote-backref data-footnote-backref-idx="1-2" aria-label="Back to reference 1-2">↩<sup class="footnote-ref">2</sup></a></p>
+</li>
+</ol>
+</section>

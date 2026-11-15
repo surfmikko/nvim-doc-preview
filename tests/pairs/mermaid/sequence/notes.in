@@ -1,0 +1,6 @@
+sequenceDiagram
+Note left of A: left
+note right of B: right
+Note over A: one
+Note over A,B: both
+A->>B: hi

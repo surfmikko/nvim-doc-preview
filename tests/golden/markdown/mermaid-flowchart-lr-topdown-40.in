@@ -1,0 +1,4 @@
+```mermaid
+flowchart LR
+  A[Alpha] -->|go| B[Beta] --> C[Gamma] --> D[Delta]
+```

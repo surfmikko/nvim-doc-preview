@@ -1,0 +1,14 @@
+<table>
+<thead>
+<tr>
+<th align="right">a</th>
+<th align="right">b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>

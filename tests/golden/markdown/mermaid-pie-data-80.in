@@ -1,0 +1,7 @@
+```mermaid
+pie showData title Key elements in Earth's crust
+  "Calcium" : 42.96
+  "Potassium" : 50.05
+  "Magnesium" : 10.01
+  "Zero" : 0
+```

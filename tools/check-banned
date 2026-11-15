@@ -1,0 +1,24 @@
+#!/bin/sh
+# Banned-API gate (doc/testing.md 5): no external processes, no dynamic code,
+# no requires outside doc_preview. Usage: tools/check-banned [dir...]
+# (default: lua plugin). Prints file:line:text per violation; exit 1 if any.
+set -eu
+
+[ $# -gt 0 ] || set -- lua plugin
+
+# `load` only as a bare call: not `vim.g.loaded_x`, not `x.load(`.
+apis='os\.execute|io\.popen|vim\.system|vim\.fn\.system|jobstart|\.spawn[[:space:]]*\('
+dynamic='(^|[^[:alnum:]_.])(load|loadstring)[[:space:]]*[("'"'"'[]'
+req='(^|[^[:alnum:]_.])require[[:space:]]*\(?[[:space:]]*["'"'"'[]'
+own='require[[:space:]]*\(?[[:space:]]*["'"'"'](doc_preview)(["'"'"'.])'
+
+status=0
+for f in $(find "$@" -name '*.lua' | sort); do
+  hits=$( { grep -nE "$apis|$dynamic" "$f" || true
+    grep -nE "$req" "$f" | grep -vE "$own" || true; } | sort -t: -n -k1,1 -u)
+  if [ -n "$hits" ]; then
+    printf '%s\n' "$hits" | sed "s|^|$f:|"
+    status=1
+  fi
+done
+exit $status

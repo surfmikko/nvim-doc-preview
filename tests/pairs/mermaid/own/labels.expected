@@ -1,0 +1,7 @@
+direction TD
+node A rect "Line one\nline two"
+node B rect "semi; colon"
+node C circle "**md** text"
+node D rect "spaced"
+node E rect "a]b"
+edge B C solid head=arrow tail=none length=1

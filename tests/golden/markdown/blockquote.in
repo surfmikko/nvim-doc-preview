@@ -1,0 +1,34 @@
+> This is a long quoted paragraph that has to be wrapped across several lines at width forty.
+
+> First paragraph in the quote.
+>
+> Second paragraph in the quote.
+
+> outer quote
+> > inner quote that is long enough to wrap around the narrow width
+> back in outer
+
+> lazy continuation starts here
+and continues without a marker
+until the quote ends.
+
+> # Heading in quote
+> text under heading
+>
+> ---
+> after the rule
+
+> Some *emphasis*, **strong** and a [link](http://example.com/a) here
+> and [ref][r] too.
+
+> before empty
+>
+> after empty
+
+Paragraph before.
+> quote between paragraphs
+lazy line after the quote.
+
+Plain paragraph after.
+
+[r]: http://example.com/r

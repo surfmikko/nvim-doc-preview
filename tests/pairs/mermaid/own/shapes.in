@@ -1,0 +1,11 @@
+flowchart TD
+A[rect]
+B(round)
+C([stadium])
+D[[sub]]
+E((circle))
+F{rhombus}
+G{{hexagon}}
+H[(db)]
+I>asym]
+J[/trap/]

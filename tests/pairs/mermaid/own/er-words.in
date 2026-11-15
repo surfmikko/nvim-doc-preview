@@ -1,0 +1,4 @@
+erDiagram
+  A one or zero to many(0) B : x
+  A only one optionally to one or more C : "quoted label"
+  A zero or more to 1+ B

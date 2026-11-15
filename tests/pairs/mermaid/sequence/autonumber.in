@@ -1,0 +1,6 @@
+sequenceDiagram
+autonumber
+A->>B: one
+autonumber 10 5
+A->>B: two
+autonumber off

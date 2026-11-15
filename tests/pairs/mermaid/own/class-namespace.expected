@@ -1,0 +1,7 @@
+direction TD
+namespace Shapes classes=Circle,Square
+class Circle "Circle"
+class Square "Square"
+  member "+side"
+class Other "Other"
+relation Circle Other solid tail=triangle head=none

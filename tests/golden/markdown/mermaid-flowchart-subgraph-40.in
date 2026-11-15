@@ -1,0 +1,8 @@
+```mermaid
+flowchart TD
+  subgraph S [Group]
+    A --> B
+  end
+  B --> C
+```
+

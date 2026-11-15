@@ -1,0 +1,4 @@
+direction TD
+node A rect "Start"
+node B rect "B"
+edge A B solid head=arrow tail=none length=1

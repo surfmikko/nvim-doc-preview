@@ -1,0 +1,11 @@
+Plain emphasis, strong text, both, under
+and double.
+
+Snake_case_word stays literal,
+intrawordemphasis works, a * b * c stays
+literal.
+
+Nested strong with inner emphasis inside
+and a b c.
+
+Unmatched *star and trailing ** pair.

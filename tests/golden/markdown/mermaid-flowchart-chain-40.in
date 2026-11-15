@@ -1,0 +1,7 @@
+A chain.
+
+```mermaid
+flowchart TD
+  A[Start] --> B[Middle] --> C[End]
+```
+

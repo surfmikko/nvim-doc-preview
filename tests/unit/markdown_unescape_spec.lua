@@ -1,0 +1,18 @@
+local unescape = require("doc_preview.markdown.unescape")
+
+describe("markdown.unescape", function()
+  it("decodes numeric and named references, nil for unknown", function()
+    assert.equals("A", unescape.decode("#65"))
+    assert.equals("A", unescape.decode("#x41"))
+    assert.equals("&", unescape.decode("amp"))
+    assert.is_nil(unescape.decode("nosuchname"))
+  end)
+
+  it("resolves backslash escapes and references", function()
+    assert.equals("a*b", unescape.unescape("a\\*b"))
+    assert.equals("a&b", unescape.unescape("a&amp;b"))
+    assert.equals("a\\b", unescape.unescape("a\\b"))
+    assert.equals("&nosuch;", unescape.unescape("&nosuch;"))
+    assert.equals("&amp;", unescape.unescape("\\&amp;"))
+  end)
+end)

@@ -1,0 +1,9 @@
+![logo](img/logo.png)
+
+![a cat](cat.png "A title")
+
+![ref image][r]
+
+Text after.
+
+[r]: ref.png

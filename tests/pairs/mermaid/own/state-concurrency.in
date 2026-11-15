@@ -1,0 +1,12 @@
+stateDiagram-v2
+  state Active {
+    [*] --> NumLockOff
+    NumLockOff --> NumLockOn : EvNumLockPressed
+    --
+    [*] --> CapsLockOff
+    CapsLockOff --> CapsLockOn
+    --
+    state Third {
+      t1 --> t2
+    }
+  }

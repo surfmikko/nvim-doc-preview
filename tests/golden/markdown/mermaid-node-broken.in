@@ -1,0 +1,8 @@
+Prose before.
+
+```mermaid
+flowchart TD
+A[unclosed
+```
+
+Prose after, **unaffected**.

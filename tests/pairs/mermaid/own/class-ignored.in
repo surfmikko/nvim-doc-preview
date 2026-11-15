@@ -1,0 +1,10 @@
+%% comment
+classDiagram-v2
+  class A:::hot
+  classDef hot fill:#f00
+  cssClass "A" hot
+  style A fill:#fff
+  click A href "http://x"
+  link A "http://x" "tip"
+  callback A "cb"
+  A --> B:::hot

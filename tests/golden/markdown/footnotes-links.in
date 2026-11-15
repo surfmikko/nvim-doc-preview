@@ -1,0 +1,4 @@
+See [the site](https://example.com) and a note[^n1], then [more](https://example.org/x) and another[^n2].
+
+[^n1]: A note with [a link](https://example.net).
+[^n2]: Plain note.

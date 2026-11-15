@@ -1,0 +1,9 @@
+direction TD
+class List "List<T>"
+  annotation "interface"
+  member "+List<int> items"
+  method "+add(T item) void"
+class Odd Name "Odd Name"
+class Box "Pretty box"
+  annotation "service"
+relation Odd Name List solid tail=none head=arrow

@@ -1,0 +1,6 @@
+gantt unit=day format=YYYY-MM-DD title "Plan"
+section "Build"
+task "Design" id=d1 tags=done start=2024-01-01 end=2024-01-04
+task "Code" id=c1 tags=active start=2024-01-04 end=2024-01-11
+task "Ship" id=s1 tags=crit start=2024-01-12 end=2024-01-15
+section "Empty"

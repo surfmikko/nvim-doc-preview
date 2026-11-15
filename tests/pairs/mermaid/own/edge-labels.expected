@@ -1,0 +1,12 @@
+direction TD
+node A rect "A"
+node B rect "B"
+node C rect "C"
+node D rect "D"
+node E rect "E"
+node F rect "F"
+edge A B solid head=arrow tail=none length=1 "yes"
+edge A C solid head=arrow tail=none length=1 "no"
+edge A D dotted head=arrow tail=none length=1 "maybe"
+edge A E thick head=arrow tail=none length=1 "sure"
+edge A F solid head=arrow tail=none length=1 "spaced | pipe"

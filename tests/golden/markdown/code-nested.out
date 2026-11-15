@@ -1,0 +1,25 @@
+│ quoted code:
+│ 
+│ in quote
+
+• bullet item
+
+  let a = 1;
+
+1. ordered item
+
+   in ordered
+
+• item with indented code:
+
+  indented in item
+
+• item with quote:
+
+  │ quote fence in item
+
+• outer
+
+  ◦ inner
+
+    nested list code

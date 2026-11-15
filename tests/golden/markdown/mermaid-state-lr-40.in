@@ -1,0 +1,8 @@
+```mermaid
+stateDiagram-v2
+  direction LR
+  [*] --> Draft
+  Draft --> Review : submit
+  Review --> Published : approve
+  Review --> Draft : reject
+```

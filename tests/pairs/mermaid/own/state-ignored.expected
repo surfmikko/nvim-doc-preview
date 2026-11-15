@@ -1,0 +1,4 @@
+direction TD
+state A round "A"
+state B round "B"
+transition A B

@@ -1,0 +1,4 @@
+Text[^l].
+
+[^l]: A note
+that is lazily continued.

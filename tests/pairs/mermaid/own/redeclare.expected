@@ -1,0 +1,4 @@
+direction TD
+node A rect "Begin"
+node B rhombus "Choice"
+edge A B solid head=arrow tail=none length=1

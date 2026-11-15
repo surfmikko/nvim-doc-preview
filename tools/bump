@@ -1,0 +1,44 @@
+#!/bin/sh
+# Usage: tools/bump X.Y.Z
+# Sets M.version in lua/doc_preview/init.lua and turns CHANGELOG.md's
+# [Unreleased] section into a dated X.Y.Z release. Edits files only; it
+# does not commit or tag. POSIX sh, no sed -i (GNU/BSD differ).
+set -eu
+
+new=${1:-}
+case $new in
+[0-9]*.[0-9]*.[0-9]*) ;;
+*) echo "usage: tools/bump X.Y.Z" >&2; exit 2 ;;
+esac
+
+init=lua/doc_preview/init.lua
+log=CHANGELOG.md
+repo=https://github.com/surfmikko/nvim-doc-preview
+date=$(date +%Y-%m-%d)
+prev=$(sed -n 's/^\[Unreleased\]: .*compare\/v\(.*\)\.\.\.HEAD$/\1/p' "$log")
+
+if [ "$prev" = "$new" ]; then
+	echo "bump: already at $new" >&2
+	exit 1
+fi
+
+# First release: the [Unreleased] link has no compare range yet.
+if [ -n "$prev" ]; then
+	links="[$new]: $repo/compare/v$prev...v$new"
+else
+	links="[$new]: $repo/releases/tag/v$new"
+fi
+
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+
+sed "s/^M.version = \".*\"/M.version = \"$new\"/" "$init" >"$tmp" && cat "$tmp" >"$init"
+
+sed -e "s/^## \[Unreleased\]\$/## [Unreleased]\n\n## [$new] - $date/" \
+	-e "s|^\[Unreleased\]: .*|[Unreleased]: $repo/compare/v$new...HEAD\n$links|" \
+	"$log" >"$tmp" && cat "$tmp" >"$log"
+
+echo "bumped ${prev:-(none)} -> $new. Review, then:"
+major=${new%%.*}
+echo "  git commit -am 'Release $new' && git tag v$new && git tag -f v$major"
+echo "  git push origin main v$new && git push -f origin v$major   # v$major floats to the latest release"

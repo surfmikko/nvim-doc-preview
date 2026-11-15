@@ -1,0 +1,5 @@
+```mermaid
+erDiagram
+  STUDENT ||--o{ ENROLMENT : has
+  COURSE ||--o{ ENROLMENT : has
+```

@@ -1,0 +1,8 @@
+```mermaid
+gantt
+  dateFormat YYYY-MM-DD HH:mm
+  section Day
+  Standup :s1, 2024-03-01 09:00, 30m
+  Review :r1, after s1, 2h
+  Lunch :l1, 2024-03-01 12:00, 1h
+```

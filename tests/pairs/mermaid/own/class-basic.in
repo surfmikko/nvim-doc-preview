@@ -1,0 +1,13 @@
+classDiagram
+  direction LR
+  class Animal
+  class Duck {
+    <<abstract>>
+    +String beak
+    -int age$
+    +swim() void
+    +quack()* String
+  }
+  Animal : +int legs
+  Animal : +eat(food) bool
+  Animal <|-- Duck

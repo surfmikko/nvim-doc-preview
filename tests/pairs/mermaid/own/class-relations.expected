@@ -1,0 +1,37 @@
+direction TD
+class A "A"
+class B "B"
+class C "C"
+class D "D"
+class E "E"
+class F "F"
+class G "G"
+class H "H"
+class I "I"
+class J "J"
+class K "K"
+class L "L"
+class M "M"
+class N "N"
+class O "O"
+class P "P"
+class Q "Q"
+class R "R"
+class S "S"
+class T "T"
+class U "U"
+class V "V"
+class W "W"
+class X "X"
+relation A B solid tail=triangle head=none
+relation C D solid tail=none head=triangle
+relation E F solid tail=diamond_filled head=none
+relation G H solid tail=diamond head=none
+relation I J solid tail=none head=arrow
+relation K L solid tail=arrow head=none
+relation M N solid tail=none head=none
+relation O P dotted tail=none head=arrow
+relation Q R dotted tail=none head=triangle
+relation S T dotted tail=none head=none
+relation U V solid tail=none head=diamond_filled
+relation W X solid tail=none head=diamond

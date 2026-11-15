@@ -1,0 +1,11 @@
+stateDiagram-v2
+  state if_state <<choice>>
+  state fork_state <<fork>>
+  state join_state <<join>>
+  [*] --> if_state
+  if_state --> fork_state : yes
+  if_state --> [*] : no
+  fork_state --> L
+  fork_state --> R
+  L --> join_state
+  R --> join_state

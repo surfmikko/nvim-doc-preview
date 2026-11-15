@@ -1,0 +1,3 @@
+- item with note[^i]
+
+  [^i]: Note inside a list item.

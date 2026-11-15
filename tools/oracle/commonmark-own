@@ -1,0 +1,68 @@
+#!/bin/sh
+# Generates .expected and .meta for every tests/pairs/markdown/own/*.in with
+# cmark (BSD-2-Clause, dev-only oracle). Inputs named gfm-*.in use
+# `cmark-gfm --extension strikethrough --extension tasklist` instead (GFM, BSD-2-Clause);
+# gfm-table-*.in additionally add `--extension table`;
+# gfm-footnote-*.in additionally add `--extension table --extension footnotes`.
+# Inputs named html-*.in add `--unsafe`: cmark replaces raw HTML by a comment
+# without it; other inputs stay generated without the flag.
+# Never touches the .in files. Run from anywhere on a machine that has the
+# tools; not part of `make test`.
+set -eu
+
+need() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    echo "$1 not found: install with 'port install cmark' / 'port install cmark-gfm' (MacPorts) or build it into a per-platform dir and put its bin/ on PATH" >&2
+    exit 1
+  fi
+}
+
+root=$(cd "$(dirname "$0")/../.." && pwd)
+dir=$root/tests/pairs/markdown/own
+need cmark
+ls "$dir"/gfm-*.in >/dev/null 2>&1 && need cmark-gfm
+
+for input in "$dir"/*.in; do
+  [ -e "$input" ] || continue
+  base=${input%.in}
+  case $(basename "$base") in
+    gfm-table-*)
+      tool=cmark-gfm
+      url=https://github.com/github/cmark-gfm
+      cmd="cmark-gfm --extension strikethrough --extension tasklist --extension table --to html"
+      cmark-gfm --extension strikethrough --extension tasklist --extension table --to html "$input" >"$base.expected"
+      ;;
+    gfm-footnote-*)
+      tool=cmark-gfm
+      url=https://github.com/github/cmark-gfm
+      cmd="cmark-gfm --extension strikethrough --extension tasklist --extension table --extension footnotes --to html"
+      cmark-gfm --extension strikethrough --extension tasklist --extension table --extension footnotes --to html "$input" >"$base.expected"
+      ;;
+    gfm-*)
+      tool=cmark-gfm
+      url=https://github.com/github/cmark-gfm
+      cmd="cmark-gfm --extension strikethrough --extension tasklist --to html"
+      cmark-gfm --extension strikethrough --extension tasklist --to html "$input" >"$base.expected"
+      ;;
+    html-*)
+      tool=cmark
+      url=https://github.com/commonmark/cmark
+      cmd="cmark --unsafe --to html"
+      cmark --unsafe --to html "$input" >"$base.expected"
+      ;;
+    *)
+      tool=cmark
+      url=https://github.com/commonmark/cmark
+      cmd="cmark --to html"
+      cmark --to html "$input" >"$base.expected"
+      ;;
+  esac
+  {
+    echo "upstream: $tool ($url)"
+    echo "tool-version: $($tool --version | head -n 1)"
+    echo "command: $cmd <case>.in"
+    echo "tool-licence: BSD-2-Clause"
+    echo "input: written for this repo"
+  } >"$base.meta"
+done
+echo "generated expectations for $(ls "$dir"/*.in | wc -l | tr -d ' ') inputs"

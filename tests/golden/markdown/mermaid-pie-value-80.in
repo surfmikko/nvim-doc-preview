@@ -1,0 +1,5 @@
+```mermaid
+pie showData title Tiny
+  "A long label" : 1234567
+  "B" : 3
+```

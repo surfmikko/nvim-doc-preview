@@ -1,0 +1,7 @@
+```mermaid
+flowchart TD
+  A[Rect] --> B(Round) --> C([Stadium])
+  C --> D[[Sub]] --> E((Circ))
+  E --> F{Rhomb} --> G{{Hex}} --> H[(Db)]
+```
+

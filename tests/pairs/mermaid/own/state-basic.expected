@@ -1,0 +1,12 @@
+direction TD
+state start:root start ""
+state Still round "Still"
+state end:root end ""
+state Moving round "Moving"
+state Crash round "Crash"
+transition start:root Still
+transition Still end:root
+transition Still Moving "push"
+transition Moving Still "stop"
+transition Moving Crash
+transition Crash end:root

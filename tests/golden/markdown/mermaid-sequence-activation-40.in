@@ -1,0 +1,10 @@
+```mermaid
+sequenceDiagram
+autonumber
+A->>+B: call
+B->>+C: nested
+C-->>-B: done
+activate A
+B-->>-A: result
+deactivate A
+```
