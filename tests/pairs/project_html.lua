@@ -51,7 +51,7 @@ local function collect_defs(children)
   end
 end
 
--- cmark-gfm form (unverified here: confirm on the host, issue/footnotes.md 8).
+-- cmark-gfm form.
 local function ref_html(label)
   if not fn.defs[label] then
     return escape("[^" .. label .. "]")
@@ -127,7 +127,7 @@ local function blocks_html(children, unsupported, tight)
   return table.concat(parts, "\n")
 end
 
--- cmark-gfm --extension tasklist form (unverified here: see issue/lists.md 5).
+-- cmark-gfm --extension tasklist form.
 local function checkbox(checked)
   return '<input type="checkbox"' .. (checked and ' checked=""' or "") .. ' disabled="" /> '
 end
@@ -179,8 +179,8 @@ local function raw_html(node)
   return table.concat(body)
 end
 
--- cmark-gfm --extension table form, one tag per line (unverified here:
--- confirm on the host, issue/tables.md 9). No <tbody> without body rows.
+-- cmark-gfm --extension table form, one tag per line. No <tbody> without
+-- body rows.
 local function row_html(cells, align, tag)
   local parts = { "<tr>" }
   for i, cell in ipairs(cells) do

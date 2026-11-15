@@ -76,8 +76,7 @@ tight versus loose, marker/delimiter change starts a new list, ordered
 start number, ordered list interrupts a paragraph only at 1, empty item
 cannot interrupt. **No code was ported** from `markdown-it` or
 `commonmark.js`, so no header comment or `NOTICE` entry. Task items use
-`cmark-gfm --extension tasklist` as the oracle. Per-section pair counts
-are not recorded yet (task 6 of `issue/lists.md`, host).
+`cmark-gfm --extension tasklist` as the oracle. Pair counts: see "Pair baseline".
 
 ## Fenced and indented code (slice 0012)
 
@@ -89,7 +88,7 @@ indented code needs a blank line or block start before it and keeps interior
 blanks. **No code was ported** from `markdown-it` or `cmark`, so no header
 comment or `NOTICE` entry. Own inputs: `tests/pairs/markdown/own/code-fence-*`,
 `code-indented-*`, `code-quote-*`, `code-list-*`, `code-precedence-*`. Pair
-counts are not recorded yet (task 9 of `issue/fenced-code.md`, host).
+counts: see "Pair baseline".
 
 ## HTML blocks and raw HTML (slice 0013)
 
@@ -100,7 +99,7 @@ grammar for inline HTML; and GFM "Disallowed Raw HTML" (tagfilter), which is
 not rendered differently here. **No code was ported** from `markdown-it` or
 `commonmark.js`, so no header credit or `NOTICE` entry. Own inputs:
 `tests/pairs/markdown/own/html-*` (expectations from `cmark --unsafe`).
-Pair counts are not recorded yet (task 9 of `issue/html-blocks.md`, host).
+Pair counts: see "Pair baseline".
 
 ## cmark-gfm
 
@@ -119,8 +118,8 @@ continuation, a definition interrupting a paragraph, undefined references
 staying literal). Oracle: `cmark-gfm --extension footnotes` over
 `tests/pairs/markdown/own/gfm-footnote-*` (dev-only). Answer to the pairs
 question: pairs are kept; `markdown-it-footnote` is not used and nothing is
-ported, so no `NOTICE` entry. The projection's footnote HTML form is
-unconfirmed until the host run (`issue/footnotes.md` task 8).
+ported, so no `NOTICE` entry. The projection's footnote HTML form was
+confirmed by the host pair baseline run.
 
 ## Port source for inline rules
 
@@ -142,8 +141,7 @@ no header credit or `NOTICE` entry. The column-width fitting in
 `core/table.lua` (proportional shrink, per-column floors, largest-remainder
 distribution) and the box drawing in `core/box.lua` are **original**. Own
 inputs: `tests/pairs/markdown/own/gfm-table-*` (expectations from
-`cmark-gfm --extension table`, host only). Pair counts are not recorded yet
-(task 9 of `issue/tables.md`, host).
+`cmark-gfm --extension table`). Pair counts: see "Pair baseline".
 
 ## Port source for link rules
 

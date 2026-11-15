@@ -37,33 +37,36 @@ Done when:    observable acceptance, incl. which tests must pass
 Out of scope: what is left for later issues
 ```
 
+Issue files of finished slices were removed in the 0.1.0 release commit; their
+history is in the initial commit.
+
 | Issue | Status |
 |---|---|
-| [0001 Testing framework](../issue/testing-framework.md) | done |
-| [0002 Async render pipeline](../issue/async-render-pipeline.md) | done |
-| [0003 Paragraph, real](../issue/paragraph-real.md) | done |
-| [Scroll sync (unnumbered)](../issue/scroll-sync.md) | done (`<CR>` jump moves to 0008) |
-| [0004 Heading](../issue/heading.md) | done |
-| [0005 Quality gates](../issue/quality-gates.md) | done |
-| [0006 Inline emphasis, strong, code span](../issue/inline-emphasis.md) | done |
-| [0007 Links](../issue/links.md) | done |
-| [0008 `<CR>` jump](../issue/cr-jump.md) | done |
-| [0009 Thematic break](../issue/thematic-break.md) | done |
-| [0010 Block quote](../issue/block-quote.md) | done |
-| [0011 Lists](../issue/lists.md) | done |
-| [0012 Fenced code](../issue/fenced-code.md) | done |
-| [0013 HTML blocks](../issue/html-blocks.md) | done |
-| [0014 Tables](../issue/tables.md) | done |
-| [0015 Images placeholder](../issue/images-placeholder.md) | done |
-| [0016 Footnotes](../issue/footnotes.md) | done |
-| [0017 Resize](../issue/resize.md) | done |
-| [0018 Config and validation](../issue/config-validation.md) | done |
-| [0019 Large-file guard](../issue/large-file-guard.md) | done |
-| [0020 Layouts](../issue/layouts.md) | done (`make ci` passes in the sandbox) |
-| [Nested-block render crash (unnumbered, review)](../issue/nested-render-crash.md) | planned |
-| [Markdown parse yield and quadratic lazy lines (unnumbered, review)](../issue/markdown-parse-yield.md) | planned |
-| [Robustness tests (unnumbered, review)](../issue/robustness-tests.md) | planned (after the two above) |
-| [Review cleanup (unnumbered, review)](../issue/review-cleanup.md) | done |
+| 0001 Testing framework | done |
+| 0002 Async render pipeline | done |
+| 0003 Paragraph, real | done |
+| Scroll sync (unnumbered) | done (`<CR>` jump moves to 0008) |
+| 0004 Heading | done |
+| 0005 Quality gates | done |
+| 0006 Inline emphasis, strong, code span | done |
+| 0007 Links | done |
+| 0008 `<CR>` jump | done |
+| 0009 Thematic break | done |
+| 0010 Block quote | done |
+| 0011 Lists | done |
+| 0012 Fenced code | done |
+| 0013 HTML blocks | done |
+| 0014 Tables | done |
+| 0015 Images placeholder | done |
+| 0016 Footnotes | done |
+| 0017 Resize | done |
+| 0018 Config and validation | done |
+| 0019 Large-file guard | done |
+| 0020 Layouts | done |
+| Nested-block render crash (unnumbered, review) | done |
+| Markdown parse yield and quadratic lazy lines (unnumbered, review) | done |
+| Robustness tests (unnumbered, review) | done |
+| Review cleanup (unnumbered, review) | done |
 
 ## Roadmap (not yet planned in detail)
 
@@ -130,10 +133,10 @@ second frontend)
   slice first ports code or copies test data).
 * GitHub Actions CI (`.github/workflows`): run `make ci` on a Neovim
   version matrix (minimum 0.10, stable, nightly) on Linux and macOS.
-  Written (`.github/workflows/ci.yml`), awaiting first run
-  (`issue/ci-workflow.md`).
-* Release packaging. Not started:
-  * Tagged releases (semver) with a changelog.
+  Done (`.github/workflows/ci.yml`; passing on GitHub).
+* Release packaging:
+  * Tagged releases (semver) with a changelog: done (`make bump`, floating
+    `v0` tag). Not started:
   * LuaRocks: a rockspec listing only runtime files (`plugin/`, `lua/`,
     `doc/doc_preview.txt`) and a publish workflow
     (`luarocks-tag-release`).
